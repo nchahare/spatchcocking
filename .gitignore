@@ -1,0 +1,19 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Distribution / Packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Environment folders
+.venv/
+venv/
+env/
+ni-vedo-env/
+
+# IDE files
+.vscode/
+.idea/
