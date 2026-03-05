@@ -1,0 +1,27 @@
+# Core Math & Data
+numpy
+pandas
+scipy
+
+# Image Processing (Group 1)
+opencv-python
+scikit-image
+pillow
+imageio
+tifffile
+
+# STL & Geometry (Group 2)
+numpy-stl
+trimesh
+vedo @ git+https://github.com/marcomusy/vedo.git
+vtk
+
+# Plotting & Visualization (Group 3)
+matplotlib
+seaborn
+matplotlib-inline
+
+# Utilities
+loguru
+requests
+tqdm
