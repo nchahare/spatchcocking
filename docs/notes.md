@@ -60,3 +60,44 @@ python -c "import spatchcocking; print(spatchcocking.__file__)"
 
 If it returns the path to your src/spatchcocking folder, you are successfully set up!
 
+## How to segment manually
+
+**Goal:** Manually segment large 3D volumes by downsampling the Y-axis for efficient annotation, then interpolating and reconstructing to full resolution.
+
+1. Data Preparation & Orientation
+* **Load Data:** Import the multi-channel TIFF (DAPI/PHH3).
+* **Scaling:** Adjust the Z-axis voxel size (e.g., multiply by `1.5` correction factor).
+* **Reslice:** Transpose the volume from `(Z, Y, X)` to `(Y, Z, X)` to make the Y-axis the primary dimension for "slicing" during annotation.
+
+2. Sparse Downsampling (Annotation Prep)
+* **Define Density:** Select the number of slices to annotate manually (e.g., `55` slices).
+* **Index Mapping:** The script calculates equidistant Y-indices to ensure even coverage across the volume.
+* **Initialization:** Generate empty label arrays matching the downsampled shape.
+
+3. Manual Annotation
+* **Execution:** Annotate the `Inner` and `Outer` masks using the **Paint** or **Polygon** tools.
+* **Best Practices:**
+* **Save Frequently:** Export your progress as TIFF files regularly to prevent data loss.
+* **Label ID 0:** Remember that Label `0` is your eraser.
+
+4. Upsampling & Reconstruction
+* **Map Back:** Use your index mapping to place the annotated slices back into their original "home" positions within the full-size `(1971, 420, 1485)` volume.
+* **Fix Gaps:** Manually inspect the start and end of the volume; fill any missing labels and save as `[filename]-fixed.tif`.
+
+5. Morphological Interpolation
+* **Automate:** Use the `napari-label-interpolator` plugin to fill the gaps between your manual slices.
+* **Memory Management:** * Interpolate one mask (Inner or Outer) at a time.
+* Close unnecessary layers to avoid memory overload.
+* Save results as `[filename]-fixed-interpolated.tif`.
+
+6. Final Review
+* **Validation:** Toggle the visibility of your interpolated masks over the raw data to ensure the alignment and shape remain biologically accurate.
+
+**Pro-Tips for Success:**
+* **Keep track of `y_indices`:** Save the index array to a `.npy` file; you need it to reconstruct your volume correctly.
+* **Kernel Stability:** If Napari becomes unresponsive or crashes, restart your Jupyter Kernel immediately.
+* **Maintain Order:** Ensure the scaling factors remain synced with your axes after every transposition.
+
+
+## How to convert to mesh
+
