@@ -33,11 +33,11 @@ from vedo import Mesh
 # ## Load lumen and basal meshes
 
 # %%
-lumen_mesh = sp.get_mesh("../data/meshes/HH17/HH17_embryo1_lumen.ply")
+lumen_mesh = Mesh("../data/example/lumen.ply")
 
 # The basal (outer) surface mesh must be generated separately
 # from the neuroepithelium segmentation (same protocol as lumen)
-basal_mesh = sp.get_mesh("../data/meshes/HH17/HH17_embryo1_basal.ply")
+basal_mesh = Mesh("../data/example/basal.ply")
 
 # %% [markdown]
 # ## Compute thickness
@@ -80,7 +80,7 @@ Image("thickness_3d.png")
 # %%
 # Rename the array for downstream clarity
 lumen_mesh.pointdata["thickness"] = lumen_mesh.pointdata["Distance"]
-sp.save_mesh(lumen_mesh, "../data/meshes/HH17/HH17_embryo1_lumen_thickness.ply")
+sp.save_mesh(lumen_mesh, "../data/example/lumen_thickness.ply")
 
 # %% [markdown]
 # ## Thickness distribution

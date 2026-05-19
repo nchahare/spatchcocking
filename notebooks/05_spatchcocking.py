@@ -37,7 +37,7 @@ import matplotlib.pyplot as plt
 # (curvature + thickness + pHH3 density stored as vertex arrays).
 
 # %%
-mesh = sp.get_mesh("../data/meshes/HH17/HH17_embryo1_lumen.ply")
+mesh = Mesh("../data/example/lumen.ply")
 mesh = sp.compute_and_save_curvatures(mesh)
 
 print("Available vertex arrays:", list(mesh.pointdata.keys()))

@@ -44,23 +44,28 @@ All files pushed to `origin/main`. No outstanding tasks.
 ## Repository map
 
 ```
+docs/
+    spatchcocking_method.md  — conceptual explanation of the transformation
+    api_reference.md         — full function reference with signatures + examples
+
 src/spatchcocking/
     spatchcocking_utils.py   — core module, 1663 lines, all pipeline functions
     sectioning_utils.py      — placeholder, refers to segmentation/README.md
     __init__.py
 
 notebooks/
-    00_quickstart.py/.ipynb        — shows all 6 meshes + 6 scalar fields (vedo)
-    01_mesh_generation.py/.ipynb   — TIFF mask → PLY mesh
-    02_curvature_mapping.py/.ipynb — Gaussian & Mean curvature
-    03_thickness_mapping.py/.ipynb — apico-basal tissue thickness
-    04_pHH3_density_mapping.py/.ipynb — mitotic cell density
-    05_spatchcocking.py/.ipynb     — 3D→2D projection
+    00_mesh_viewer.py/.ipynb       — 3D viewer: all 6 research meshes + 6 scalar fields
+    01_mesh_generation.py/.ipynb   — TIFF mask → lumen mesh (uses data/example/)
+    02_curvature_mapping.py/.ipynb — Gaussian & Mean curvature (uses data/example/)
+    03_thickness_mapping.py/.ipynb — apico-basal thickness (uses data/example/)
+    04_pHH3_density_mapping.py/.ipynb — mitotic density (uses data/example/)
+    05_spatchcocking.py/.ipynb     — full 3D→2D projection (uses data/example/)
     06_figure_plots.py/.ipynb      — reproduce all paper figures from CSV
 
 data/
     meshes/   — 6 VTK lumen meshes (3×HH17, 3×HH20), all properties pre-computed
     csv/      — 4 pre-computed CSV files (see below)
+    example/  — trial data for notebooks 01–05 (user to add: mask.tif, lumen.ply, basal.ply)
 
 segmentation/
     README.md            — Fiji → 3D Slicer → napari pipeline docs

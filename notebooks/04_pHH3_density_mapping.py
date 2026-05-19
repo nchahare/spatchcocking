@@ -35,11 +35,11 @@ import matplotlib.pyplot as plt
 # `Position X`, `Position Y`, `Position Z` (in µm).
 
 # %%
-mesh = sp.get_mesh("../data/meshes/HH17/HH17_embryo1_lumen.ply")
+mesh = Mesh("../data/example/lumen.ply")
 
 # Load pHH3+ spot coordinates (exported from Imaris as CSV)
 # Expected columns: 'Position X', 'Position Y', 'Position Z' (in µm)
-spots_df = pd.read_csv("path/to/HH17_embryo1_pHH3_spots.csv")
+spots_df = pd.read_csv("../data/example/pHH3_spots.csv")
 spots = spots_df[["Position X", "Position Y", "Position Z"]].values
 print(f"Loaded {len(spots)} pHH3+ cells")
 
@@ -84,7 +84,7 @@ Image("pHH3_density_3d.png")
 # ## Save mesh with density data
 
 # %%
-sp.save_mesh(mesh, "../data/meshes/HH17/HH17_embryo1_lumen_pHH3.ply")
+sp.save_mesh(mesh, "../data/example/lumen_pHH3.ply")
 
 # %% [markdown]
 # ## Density distribution

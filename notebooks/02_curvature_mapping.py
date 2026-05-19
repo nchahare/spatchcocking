@@ -29,22 +29,22 @@ import matplotlib.pyplot as plt
 # ## Load mesh
 
 # %%
-mesh = sp.get_mesh("../data/meshes/HH17/HH17_embryo1_lumen.ply")
+mesh = Mesh("../data/example/lumen.ply")
 
 # %% [markdown]
 # ## Compute curvatures
 #
 # `compute_and_save_curvatures` fits local quadric patches to each vertex
 # neighbourhood and adds four vertex arrays to the mesh:
-# `Gauss_curvature`, `Mean_curvature`, `k1`, `k2`.
+# `Gauss_Curvature`, `Mean_Curvature`, `k1`, `k2`.
 
 # %%
-# Computes k1, k2, Gauss_curvature (K), Mean_curvature (H)
+# Computes k1, k2, Gauss_Curvature (K), Mean_Curvature (H)
 # and stores them as vertex point arrays on the mesh
 mesh = sp.compute_and_save_curvatures(mesh)
 
-K = mesh.pointdata["Gauss_curvature"]
-H = mesh.pointdata["Mean_curvature"]
+K = mesh.pointdata["Gauss_Curvature"]
+H = mesh.pointdata["Mean_Curvature"]
 print(f"K: min={K.min():.2e}, max={K.max():.2e}, mean={K.mean():.2e}")
 print(f"H: min={H.min():.2e}, max={H.max():.2e}, mean={H.mean():.2e}")
 
@@ -58,7 +58,7 @@ print(f"H: min={H.min():.2e}, max={H.max():.2e}, mean={H.mean():.2e}")
 from vedo import Plotter
 
 # Gaussian curvature
-mesh.pointdata.select("Gauss_curvature")
+mesh.pointdata.select("Gauss_Curvature")
 vmin, vmax = sp.getTightercmap(K)
 mesh.cmap("PiYG", vmin=vmin, vmax=vmax)
 
@@ -70,7 +70,7 @@ Image("gaussian_curvature_3d.png")
 
 # %%
 # Mean curvature
-mesh.pointdata.select("Mean_curvature")
+mesh.pointdata.select("Mean_Curvature")
 vmin, vmax = sp.getTightercmap(H)
 mesh.cmap("RdBu_r", vmin=vmin, vmax=vmax)
 
@@ -86,7 +86,7 @@ Image("mean_curvature_3d.png")
 # in all downstream notebooks.
 
 # %%
-sp.save_mesh(mesh, "../data/meshes/HH17/HH17_embryo1_lumen_curvature.ply")
+sp.save_mesh(mesh, "../data/example/lumen_curvature.ply")
 
 # %% [markdown]
 # ## Distribution of curvature values

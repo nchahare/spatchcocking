@@ -39,7 +39,7 @@ import matplotlib.pyplot as plt
 
 # %%
 # Path to a binary TIFF lumen mask (lumen=1, background=0)
-tiff_path = "path/to/HH17_embryo1_lumen_mask.tiff"
+tiff_path = "../data/example/mask.tif"
 
 # Extract mesh with default parameters:
 # - decimation to 200 vertices
@@ -72,7 +72,7 @@ Image("mesh_preview.png")
 # and pHH3 density).
 
 # %%
-output_path = "../data/meshes/HH17/HH17_embryo1_lumen.ply"
+output_path = "../data/example/lumen.ply"
 sp.save_mesh(mesh, output_path)
 print(f"Saved: {output_path}")
 
@@ -85,7 +85,7 @@ print(f"Saved: {output_path}")
 import os
 
 # tiff_dir = "path/to/HH17_masks/"
-# output_dir = "../data/meshes/HH17/"
+# output_dir = "../data/example/"
 # os.makedirs(output_dir, exist_ok=True)
 
 # for fname in sorted(os.listdir(tiff_dir)):
