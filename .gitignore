@@ -17,3 +17,4 @@ ni-vedo-env/
 # IDE files
 .vscode/
 .idea/
+.claude/
