@@ -12,6 +12,7 @@ to illustrate each step of the spatchcocking pipeline.
 | `lumen.ply` | Inner surface mesh | Notebook 01 |
 | `basal.ply`  | Outer (basal lamina) surface mesh | Notebook 01 |
 | `lumen_curvature.ply` | Lumen mesh + curvature vertex arrays | Notebook 02 |
+| `basal_curvature.ply` | Basal mesh + curvature vertex arrays | Notebook 02 |
 | `lumen_thickness.ply` | Lumen mesh + thickness vertex array | Notebook 03 |
 | `lumen_pHH3.ply` | Lumen mesh + pHH3 density vertex array | Notebook 04 |
 | `pHH3_spots.csv` | pHH3+ cell coordinates from Imaris | User — Imaris spot detection export |
