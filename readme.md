@@ -23,20 +23,21 @@ The cranial neural tube is a highly curved, three-dimensional structure whose lo
 This enables direct spatial comparison of Gaussian curvature, Mean curvature, tissue thickness, and mitotic cell density across embryos and stages.
 
 ```
-Raw confocal image
-        ↓  (Fiji + 3D Slicer)         [docs/segmentation.md]
+  Raw confocal image
+        ↓  (Fiji + 3D Slicer)              [docs/segmentation.md]
   3D binary mask
-        ↓  (marching cubes)            [notebook 01]
+        ↓  (marching cubes)                [notebook 01]
    Surface mesh (.ply)
-        ↓  (spatchcocking package)
-  ┌─────────────────────────────┐
-  │  Curvature mapping          │  [notebook 02]
-  │  Thickness mapping          │  [notebook 03]
-  │  pHH3 density mapping       │  [notebook 04]
-  │  Spatchcocking projection   │  [notebook 05]
-  └─────────────────────────────┘
-        ↓
-  2D heatmaps + statistics       [notebook 06]
+        ├──────────────────┬─────────────────────────┐
+        ↓                  ↓                         ↓
+  Curvature mapping  Thickness mapping    pHH3 density mapping
+  [notebook 02]      [notebook 03]        [notebook 04]
+        │                  │                         │
+        └──────────────────┴─────────────────────────┘
+                           ↓
+               Spatchcocking: 3D → 2D               [notebook 05]
+                           ↓
+               2D heatmaps + statistics              [notebook 06]
 ```
 
 ---
