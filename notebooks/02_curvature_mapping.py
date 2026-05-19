@@ -55,7 +55,7 @@ curvature_degree = 2      # polynomial degree (2 = quadric)
 # %%
 def decimate_to_size(mesh, good_size):
     """Decimate mesh so that median face area ≈ good_size µm²."""
-    mesh.compute_quality(metric=28)
+    mesh.compute_quality(metric=28)   # metric 28 = face area in µm²
     original_size = np.median(mesh.celldata["Quality"])
 
     scale = original_size / good_size
@@ -63,7 +63,7 @@ def decimate_to_size(mesh, good_size):
         scale = 0.999
 
     mesh_dec = mesh.clone().decimate(fraction=scale, regularization=1)
-    mesh_dec.compute_quality(metric=28)
+    mesh_dec.compute_quality(metric=28)   # metric 28 = face area in µm²
     new_size = np.median(mesh_dec.celldata["Quality"])
 
     print(f"  Median face area: {original_size:.1f} → {new_size:.1f} µm²  "
@@ -114,6 +114,7 @@ else:
             save_name=save_name,
         )
     else:
+        # cols: X  Y  Z  K  H  K1  K2
         basal_dec.pointdata["Gauss_Curvature"] = data[:, 3]
         basal_dec.pointdata["Mean_Curvature"]  = data[:, 4]
         basal_dec.pointdata["K1"] = data[:, 5]
