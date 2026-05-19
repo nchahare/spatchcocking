@@ -158,7 +158,7 @@ print("Saved: basal.ply")
 lumen = Mesh("lumen.ply").c("lightblue").alpha(0.7)
 basal  = Mesh("basal.ply").c("salmon").alpha(0.4)
 
-show([lumen, basal], N=2, axes=1).close()
+show(lumen, basal, axes=1).close()
 
 # %% [markdown]
 # ## Output summary
