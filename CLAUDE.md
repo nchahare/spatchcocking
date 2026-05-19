@@ -35,6 +35,12 @@ C:\Users\nimes\WorkWorkWork\Playground\2026-03-05-git-spatchcocking\spatchcockin
 
 ---
 
+## Status: complete ✅
+
+All files pushed to `origin/main`. No outstanding tasks.
+
+---
+
 ## Repository map
 
 ```
@@ -44,7 +50,7 @@ src/spatchcocking/
     __init__.py
 
 notebooks/
-    00_quickstart.py/.ipynb        — end-to-end demo (1 mesh)
+    00_quickstart.py/.ipynb        — shows all 6 meshes + 6 scalar fields (vedo)
     01_mesh_generation.py/.ipynb   — TIFF mask → PLY mesh
     02_curvature_mapping.py/.ipynb — Gaussian & Mean curvature
     03_thickness_mapping.py/.ipynb — apico-basal tissue thickness
@@ -53,9 +59,8 @@ notebooks/
     06_figure_plots.py/.ipynb      — reproduce all paper figures from CSV
 
 data/
-    meshes/HH17/   — 3 example lumen PLY meshes (user to add)
-    meshes/HH20/   — 3 example lumen PLY meshes (user to add)
-    csv/           — 4 pre-computed CSV files (see below)
+    meshes/   — 6 VTK lumen meshes (3×HH17, 3×HH20), all properties pre-computed
+    csv/      — 4 pre-computed CSV files (see below)
 
 segmentation/
     README.md            — Fiji → 3D Slicer → napari pipeline docs
