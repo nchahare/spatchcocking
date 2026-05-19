@@ -22,6 +22,8 @@ The cranial neural tube is a highly curved, three-dimensional structure whose lo
 
 This enables direct spatial comparison of Gaussian curvature, Mean curvature, tissue thickness, and mitotic cell density across embryos and stages.
 
+The `spatchcocking` Python package takes its name from this transformation, but it also bundles the broader set of vedo-based mesh utilities used throughout the analysis in this paper — mesh generation, curvature fitting, thickness mapping, and density interpolation.
+
 ```
   Raw confocal image
         ↓  (Fiji + 3D Slicer)              [docs/segmentation.md]
@@ -144,6 +146,20 @@ Chahare N., Imamura C., and Nerurkar N.L. (2026).
 Morphometric analysis reveals that the chick cranial neural tube expands as an active shell.
 [Journal]. DOI: [to be updated]
 ```
+
+---
+
+## Acknowledgements
+
+This work relies on the following open-source packages:
+
+- [vedo](https://vedo.embl.es/) — 3D mesh processing, curvature estimation, volumetric interpolation, and visualisation
+- [NumPy](https://numpy.org/) — numerical arrays and computations
+- [SciPy](https://scipy.org/) — scattered-data interpolation (`griddata`) and statistics
+- [pandas](https://pandas.pydata.org/) — tabular data handling and CSV I/O
+- [matplotlib](https://matplotlib.org/) — 2D plotting and figure export
+- [seaborn](https://seaborn.pydata.org/) — heatmaps and statistical visualisation
+- [trimesh](https://trimesh.org/) — marching cubes mesh extraction from binary masks
 
 ---
 
