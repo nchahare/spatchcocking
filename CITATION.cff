@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "spatchcocking"
+abstract: >-
+  A Python package for 3D-to-2D morphometric mapping of curved biological tubes.
+  Implements the spatchcocking projection used to standardize and compare
+  local tissue properties (curvature, thickness, mitotic activity) across
+  3D surfaces of the cranial neural tube.
+authors:
+  - family-names: Chahare
+    given-names: Nimesh
+    affiliation: "Department of Biomedical Engineering, Columbia University, New York, NY"
+  - family-names: Imamura
+    given-names: Chieko
+    affiliation: "Department of Biomedical Engineering, Columbia University, New York, NY"
+  - family-names: Nerurkar
+    given-names: Nandan L.
+    affiliation: "Department of Biomedical Engineering, Columbia University, New York, NY"
+repository-code: "https://github.com/nchahare/spatchcocking"
+license: MIT
+version: "0.1.0"
+date-released: "2026-05-19"
+
+preferred-citation:
+  type: article
+  title: "Morphometric analysis reveals that the chick cranial neural tube expands as an active shell"
+  authors:
+    - family-names: Chahare
+      given-names: Nimesh
+    - family-names: Imamura
+      given-names: Chieko
+    - family-names: Nerurkar
+      given-names: Nandan L.
+  year: 2026
+  journal: "Journal [to be updated upon publication]"
+  doi: "DOI to be updated upon publication"

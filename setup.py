@@ -23,7 +23,7 @@ setup(
     # Dependencies pulled from requirements.txt
     install_requires=required,
     
-    python_requires=">=3.13",
+    python_requires=">=3.10",
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
