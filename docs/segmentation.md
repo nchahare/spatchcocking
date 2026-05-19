@@ -76,7 +76,78 @@ using the **Segment Editor** module:
 
 ---
 
-### 3. TIFF mask post-processing and mesh export (Python)
+### 3. Sparse annotation in napari (alternative to 3D Slicer)
+
+For large volumes where 3D Slicer is slow, an efficient alternative is to
+annotate a sparse subset of slices in napari and then interpolate the gaps
+automatically using the
+[napari-label-interpolator](https://github.com/haesleinhuepf/napari-label-interpolator)
+plugin.
+
+**Install the plugin:**
+```bash
+pip install napari-label-interpolator
+```
+
+**Workflow:**
+
+1. **Reslice the volume** — transpose from `(Z, Y, X)` to `(Y, Z, X)` so
+   that the rostral-caudal axis (Y) becomes the primary slicing axis:
+   ```python
+   import tifffile, numpy as np
+   vol = tifffile.imread("HH20_DAPI.tiff")          # shape (Z, Y, X)
+   vol_t = np.transpose(vol, (1, 0, 2))             # shape (Y, Z, X)
+   tifffile.imwrite("HH20_DAPI_transposed.tiff", vol_t)
+   ```
+
+2. **Select sparse slice indices** — choose ~50 evenly spaced Y-positions
+   to annotate; save the index array so you can reconstruct later:
+   ```python
+   n_slices = 50
+   y_indices = np.linspace(0, vol_t.shape[0] - 1, n_slices, dtype=int)
+   np.save("y_indices.npy", y_indices)
+   sparse_vol = vol_t[y_indices]                    # shape (50, Z, X)
+   tifffile.imwrite("HH20_DAPI_sparse.tiff", sparse_vol)
+   ```
+
+3. **Annotate in napari** — open `HH20_DAPI_sparse.tiff`, add a Labels
+   layer, and draw the `Inner` (lumen) and `Outer` (basal) contours on
+   each slice using the **Paint** or **Polygon** tool.
+   - Save frequently — export labels as TIFF after every few slices.
+   - Label `0` is the eraser.
+   - Annotate `Inner` and `Outer` as separate label values (e.g., 1 and 2),
+     or as separate label layers exported individually.
+
+4. **Reconstruct full-resolution label volume** — place the annotated slices
+   back into their original Y positions:
+   ```python
+   labels_sparse = tifffile.imread("HH20_labels_sparse.tiff")  # shape (50, Z, X)
+   labels_full = np.zeros(vol_t.shape, dtype=np.uint8)
+   for i, y in enumerate(y_indices):
+       labels_full[y] = labels_sparse[i]
+   tifffile.imwrite("HH20_labels_full.tiff", labels_full)
+   ```
+
+5. **Interpolate gaps** — open `HH20_labels_full.tiff` in napari and run
+   **Plugins → napari-label-interpolator → Interpolate Labels**.
+   - Interpolate one mask (Inner or Outer) at a time to avoid memory issues.
+   - Close unused layers before interpolating.
+   - Save the result as `HH20_lumen_mask.tiff` and `HH20_basal_mask.tiff`.
+
+6. **Transpose back** to `(Z, Y, X)` before passing to the post-processing
+   script:
+   ```python
+   mask = tifffile.imread("HH20_lumen_mask.tiff")   # shape (Y, Z, X)
+   mask_zyx = np.transpose(mask, (1, 0, 2))         # shape (Z, Y, X)
+   tifffile.imwrite("HH20_lumen_mask_zyx.tiff", mask_zyx)
+   ```
+
+7. **Validate** by toggling the mask layer over the raw image in napari to
+   confirm alignment and biological accuracy before proceeding to meshing.
+
+---
+
+### 4. TIFF mask post-processing and mesh export (Python)
 
 The script below loads the segmentation mask from 3D Slicer, cleans it, and
 exports a triangulated surface mesh.  Save it as `preprocess_tiff.py` and run:
@@ -208,7 +279,7 @@ if __name__ == "__main__":
 
 ---
 
-### 4. Visualisation in napari (optional)
+### 5. Visualisation in napari (optional)
 
 [napari](https://napari.org/) was used during manual refinement to verify the
 3D segmentation alongside the raw image:
