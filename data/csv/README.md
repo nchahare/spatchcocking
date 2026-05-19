@@ -25,10 +25,6 @@ Vertex-level measurements extracted from the spatchcocked lumen meshes
 | `K1` | µm⁻¹ | Maximum principal curvature |
 | `K2` | µm⁻¹ | Minimum principal curvature |
 
-**Compartment assignment** (applied in the plotting script):
-- HH17: Forebrain `norm_height > 0.80`, Midbrain `0.60–0.80`, Hindbrain `< 0.60`
-- HH20: Forebrain `norm_height > 0.75`, Midbrain `0.55–0.75`, Hindbrain `< 0.55`
-
 ---
 
 ## `cross_section_area.csv`
