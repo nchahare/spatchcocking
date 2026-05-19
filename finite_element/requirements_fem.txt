@@ -1,0 +1,4 @@
+solidspy
+numpy
+scipy
+matplotlib
