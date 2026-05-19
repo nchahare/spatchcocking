@@ -21,7 +21,7 @@ files_to_show = all_vtk_files[:6]
 print(files_to_show)
 
 # %%
-file_index = 5
+file_index = 2 # 2 for HH17, 5 for HH20
 cmap_limit = 2
 
 
