@@ -24,7 +24,7 @@ C:\Users\nimes\WorkWorkWork\Playground\2026-03-05-git-spatchcocking\spatchcockin
 ## Architecture decisions
 
 - **Only `src/spatchcocking/` is pip-installable** (`pip install git+https://github.com/nchahare/spatchcocking`)
-- **Segmentation** (napari, 3D Slicer) — documented only in `segmentation/README.md`, not integrated into the package
+- **Segmentation** (napari, 3D Slicer) — documented only in `docs/segmentation.md`, not integrated into the package
 - **FEA** (SolidsPy) — separate conda environment (`finite_element/`), not part of the main package
 - All notebooks use `from vedo import settings; settings.default_backend = "vtk"` at the top
 
@@ -47,10 +47,11 @@ All files pushed to `origin/main`. No outstanding tasks.
 docs/
     spatchcocking_method.md  — conceptual explanation of the transformation
     api_reference.md         — full function reference with signatures + examples
+    segmentation.md          — Fiji → 3D Slicer → napari protocol + preprocess_tiff.py script
 
 src/spatchcocking/
     spatchcocking_utils.py   — core module, 1663 lines, all pipeline functions
-    sectioning_utils.py      — placeholder, refers to segmentation/README.md
+    sectioning_utils.py      — placeholder, refers to docs/segmentation.md
     __init__.py
 
 notebooks/
@@ -66,10 +67,6 @@ data/
     meshes/   — 6 VTK lumen meshes (3×HH17, 3×HH20), all properties pre-computed
     csv/      — 4 pre-computed CSV files (see below)
     example/  — trial data for notebooks 01–05 (user to add: mask.tif, lumen.ply, basal.ply)
-
-segmentation/
-    README.md            — Fiji → 3D Slicer → napari pipeline docs
-    preprocess_tiff.py   — TIFF mask post-processing (tifffile + scipy)
 
 finite_element/
     fem_plane_stress.py   — SolidsPy 2D FEA (Fig S9, Table S1)
