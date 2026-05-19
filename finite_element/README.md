@@ -40,15 +40,25 @@ All stresses are normalized by the shear modulus µ so that results are independ
 
 ## Running the analysis
 
+Before running, create a `mater.txt` file in the working directory containing the elastic constants for SolidsPy:
+
+```
+870.0  0.45
+```
+
+This corresponds to E = 2µ(1+ν) = 2 × 300 × 1.45 ≈ 870 Pa at ν = 0.45.  The script writes `nodes.txt`, `eles.txt`, and `loads.txt` automatically; `mater.txt` must be present before calling SolidsPy.
+
 ```bash
-python finite_element/fem_plane_stress.py
+cd finite_element
+echo "870.0  0.45" > mater.txt
+python fem_plane_stress.py
 ```
 
 The script will:
-1. Build the geometry from the anchor parameters defined in Table S1 of the paper
-2. Assemble and solve the FEA system
+1. Build the geometry from the anchor parameters in `CONDITIONS` (matching Table S1 of the paper)
+2. Assemble and solve the FEA system via SolidsPy
 3. Post-process hoop stress and compute membrane stress profiles
-4. Save output plots as PDF/PNG
+4. Save the master figure as `Master_FEA_Grid_Clean.svg` (Fig. S9)
 
 ---
 
