@@ -1,101 +1,130 @@
 # %% [markdown]
-# # Quickstart: spatchcocking a neural tube mesh
+# # Quickstart: visualising all example meshes
 #
-# This script demonstrates the full pipeline end-to-end using one example mesh:
+# This script loads all 6 example lumen meshes (3 × HH17, 3 × HH20) and
+# displays them in a 2×3 grid coloured by Mean Curvature.
 #
-# 1. Load a surface mesh
-# 2. Compute Gaussian and Mean curvature
-# 3. Extract the medial axis
-# 4. Run the spatchcocking 3D→2D projection
-# 5. Visualize the result as a 2D heatmap
+# The VTK files already contain all pre-computed vertex properties
+# (curvature, thickness, pHH3 density) so no processing is needed —
+# just load and plot.
+#
+# **Available vertex properties in each mesh:**
+# | Array name | Description | Colormap |
+# |---|---|---|
+# | `Mean_Curvature` | Mean curvature H (µm⁻¹) | PiYG |
+# | `Gauss_Curvature` | Gaussian curvature K (µm⁻²) | PiYG |
+# | `thickness` | Apico-basal wall thickness (µm) | GnBu |
+# | `K1` | Max principal curvature (µm⁻¹) | Spectral_r |
+# | `K2` | Min principal curvature (µm⁻¹) | Spectral_r |
+# | `phh3` | pHH3+ mitotic cell density | viridis |
 #
 # **Paper:** Chahare, Imamura, Nerurkar (2026)
 # **Installation:**
 # ```bash
 # pip install git+https://github.com/nchahare/spatchcocking
 # ```
-#
-# Run this file interactively in VS Code (Python Interactive) or Spyder using
-# the `# %%` cell delimiters.
 
 # %%
-# vedo requires an explicit backend outside of Jupyter
 from vedo import settings
 settings.default_backend = "vtk"
 
 # %%
-import spatchcocking as sp
-import matplotlib.pyplot as plt
+from glob import glob
+from pathlib import Path
+from vedo import Mesh, Plotter
 
 # %% [markdown]
-# ## 1. Load mesh
+# ## Load meshes
 #
-# The example mesh is a triangulated surface of the lumen (inner wall) of
-# a chick cranial neural tube at stage HH17.  It was generated from a
-# binary TIFF segmentation mask using marching cubes (see notebook 01).
+# Meshes are in `data/meshes/` as VTK files named by acquisition date and stage.
 
 # %%
-mesh_path = "../data/meshes/HH17/HH17_embryo1_lumen.ply"
-mesh = sp.get_mesh(mesh_path)
+hh17_files = sorted(glob("../data/meshes/*HH17.vtk"))
+hh20_files = sorted(glob("../data/meshes/*HH20.vtk"))
+
+print(f"HH17 meshes ({len(hh17_files)}):")
+for f in hh17_files:
+    print(f"  {Path(f).name}")
+
+print(f"\nHH20 meshes ({len(hh20_files)}):")
+for f in hh20_files:
+    print(f"  {Path(f).name}")
+
+# %% [markdown]
+# ## 2×3 overview — Mean Curvature
+#
+# Row 1: HH17 (stage ~66 hr incubation)
+# Row 2: HH20 (stage ~90 hr incubation)
+#
+# Colour encodes Mean Curvature H (µm⁻¹).
+# - Green (positive H): locally dome-shaped, outward bending
+# - Purple (negative H): locally invaginated / inward bending
+#
+# The three vesicles (forebrain, midbrain, hindbrain) are visible as
+# distinct bulges along the rostro-caudal axis.
+
+# %%
+PROP   = "Mean_Curvature"
+CMAP   = "PiYG"
+
+plt = Plotter(shape=(2, 3), offscreen=True, size=(1800, 1000))
+
+for col, path in enumerate(hh17_files):
+    mesh = Mesh(path)
+    mesh.cmap(CMAP, mesh.pointdata[PROP])
+    label = f"HH17  {Path(path).stem[:10]}"
+    plt.at(0, col).show(mesh, label, axes=0, resetcam=True)
+
+for col, path in enumerate(hh20_files):
+    mesh = Mesh(path)
+    mesh.cmap(CMAP, mesh.pointdata[PROP])
+    label = f"HH20  {Path(path).stem[:10]}"
+    plt.at(1, col).show(mesh, label, axes=0, resetcam=True)
+
+plt.screenshot("all_meshes_mean_curvature.png")
+plt.close()
+
+from IPython.display import Image
+Image("all_meshes_mean_curvature.png")
+
+# %% [markdown]
+# ## Inspect a single mesh
+#
+# Load one mesh and list all available vertex arrays.
+
+# %%
+mesh = Mesh(hh17_files[0])
 print(f"Mesh: {mesh.npoints} vertices, {mesh.ncells} faces")
+print("Vertex arrays:", list(mesh.pointdata.keys()))
 
 # %% [markdown]
-# ## 2. Compute surface curvature
+# ## Visualize a different property
 #
-# `compute_and_save_curvatures` fits local quadric patches to each
-# vertex neighbourhood (depth = 5 rings, degree = 2 polynomial) and
-# returns the mesh with four new vertex arrays:
-# - `Gauss_curvature` (K, µm⁻²): product of principal curvatures
-# - `Mean_curvature` (H, µm⁻¹): average of principal curvatures
-# - `k1`, `k2`: maximum and minimum principal curvatures
+# Change `PROP` and `CMAP` to explore other scalar fields.
+# Available combinations:
+# - `("Gauss_Curvature", "PiYG")`
+# - `("thickness", "GnBu")`
+# - `("K1", "Spectral_r")`
+# - `("K2", "Spectral_r")`
+# - `("phh3", "viridis")`
 
 # %%
-mesh = sp.compute_and_save_curvatures(mesh)
-# Vertex arrays now available: 'Gauss_curvature', 'Mean_curvature', 'k1', 'k2'
+PROP = "thickness"
+CMAP = "GnBu"
 
-# %% [markdown]
-# ## 3. Extract medial axis
-#
-# `getAxis` moves through the mesh cross-sections and finds the centroid
-# of each slice, producing a 1D skeleton of the tube.
-# `getPlanes` returns the perpendicular cross-sectional planes at each
-# axis control point — used in the spatchcocking step.
+plt = Plotter(shape=(2, 3), offscreen=True, size=(1800, 1000))
 
-# %%
-# Select dorsal points interactively (or load pre-saved coordinates)
-# dorsal_pts = sp.selectPointsonMesh(mesh)  # interactive
+for col, path in enumerate(hh17_files):
+    mesh = Mesh(path)
+    mesh.cmap(CMAP, mesh.pointdata[PROP])
+    plt.at(0, col).show(mesh, f"HH17  {Path(path).stem[:10]}", axes=0, resetcam=True)
 
-axis_points = sp.getAxis(mesh)
-planes = sp.getPlanes(mesh, axis_points, axis_points[[0, -1]])
+for col, path in enumerate(hh20_files):
+    mesh = Mesh(path)
+    mesh.cmap(CMAP, mesh.pointdata[PROP])
+    plt.at(1, col).show(mesh, f"HH20  {Path(path).stem[:10]}", axes=0, resetcam=True)
 
-# %% [markdown]
-# ## 4. Spatchcocking: 3D → 2D projection
-#
-# `getDeformedmesh` unwraps the tube by:
-# 1. Aligning each cross-section to the medial axis tangent
-# 2. Converting to cylindrical coordinates (arc length s, azimuthal angle θ)
-# 3. Applying a thin-plate spline warp to flatten the surface into 2D
-#
-# The result is a planar mesh where:
-# - x-axis = normalised rostral-caudal position (0 = rostral, 1 = caudal)
-# - y-axis = dorso-ventral angle in degrees (0° = dorsal midline, ±180° = ventral)
+plt.screenshot("all_meshes_thickness.png")
+plt.close()
 
-# %%
-flat_mesh = sp.getDeformedmesh(mesh, planes, axis_points)
-height, angles, values = sp.get_flatdata(flat_mesh, property="Gauss_curvature")
-height_norm, angles_deg, values_norm = sp.normalize_values(height, angles, values)
-
-# %% [markdown]
-# ## 5. Visualize as 2D heatmap
-#
-# The spatchcocked heatmap shows the Gaussian curvature K across the
-# unfolded tube surface.  Positive K (red) indicates locally saddle-free,
-# dome-like regions; negative K (blue) indicates saddle points.
-
-# %%
-fig, ax = plt.subplots(figsize=(4, 6))
-sp.visualize_flatmesh(height_norm, angles_deg, values_norm,
-                      title="Gaussian curvature — HH17 embryo 1",
-                      ax=ax)
-plt.tight_layout()
-plt.show()
+Image("all_meshes_thickness.png")

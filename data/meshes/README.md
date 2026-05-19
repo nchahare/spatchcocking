@@ -14,11 +14,33 @@ The **basal (outer) surface** of the neuroepithelium is used for thickness measu
 
 ## File naming
 
+Files are named by acquisition date and developmental stage:
+
 ```
-{stage}_embryo{n}_lumen.ply
+{YYYY-MM-DD-HH-MM}-{stage}.vtk
 ```
 
-For example: `HH17/HH17_embryo1_lumen.ply`
+| File | Stage |
+|---|---|
+| `2025-09-18-13-02-HH17.vtk` | HH17 |
+| `2025-09-18-14-26-HH17.vtk` | HH17 |
+| `2025-09-18-16-46-HH17.vtk` | HH17 |
+| `2025-09-23-15-48-HH20.vtk` | HH20 |
+| `2025-10-22-12-30-HH20.vtk` | HH20 |
+| `2025-10-23-13-06-HH20.vtk` | HH20 |
+
+## Pre-computed vertex properties
+
+Each VTK file contains all scalar fields pre-computed as vertex point arrays:
+
+| Array name | Units | Description |
+|---|---|---|
+| `Mean_Curvature` | µm⁻¹ | Mean curvature H = (k1 + k2) / 2 |
+| `Gauss_Curvature` | µm⁻² | Gaussian curvature K = k1 × k2 |
+| `K1` | µm⁻¹ | Maximum principal curvature |
+| `K2` | µm⁻¹ | Minimum principal curvature |
+| `thickness` | µm | Apico-basal wall thickness (lumen to basal surface) |
+| `phh3` | cell count | pHH3+ mitotic cell density within R = 100 µm |
 
 ## Imaging and segmentation parameters
 
@@ -35,10 +57,11 @@ For example: `HH17/HH17_embryo1_lumen.ply`
 
 ## Format
 
-Files are in [PLY](https://en.wikipedia.org/wiki/PLY_(file_format)) format (ASCII or binary). They can be opened with:
+Files are in [VTK Legacy](https://vtk.org/wp-content/uploads/2015/04/file-formats.pdf) format (binary polydata). They can be opened with:
 
-- **Python**: `import trimesh; mesh = trimesh.load("HH17_embryo1_lumen.ply")`
-- **3D software**: MeshLab, Blender, ParaView, napari
+- **Python (vedo)**: `from vedo import Mesh; mesh = Mesh("2025-09-18-13-02-HH17.vtk")`
+- **Python (pyvista)**: `import pyvista as pv; mesh = pv.read("2025-09-18-13-02-HH17.vtk")`
+- **3D software**: ParaView, MeshLab, Blender (with VTK plugin)
 
 ## Units
 
@@ -47,9 +70,17 @@ Vertex coordinates are in **micrometres (µm)**.
 ## Loading in spatchcocking
 
 ```python
-import spatchcocking as sp
-mesh = sp.get_mesh("data/meshes/HH17/HH17_embryo1_lumen.ply")
+from vedo import Mesh
+
+mesh = Mesh("../data/meshes/2025-09-18-13-02-HH17.vtk")
+print(mesh.npoints, "vertices")
+print("Arrays:", list(mesh.pointdata.keys()))
+
+# Colour by mean curvature
+mesh.cmap("PiYG", mesh.pointdata["Mean_Curvature"])
 ```
+
+See `notebooks/00_quickstart.py` for a 2×3 overview of all 6 meshes.
 
 ## Full dataset
 

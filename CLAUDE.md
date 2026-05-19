@@ -122,8 +122,19 @@ finite_element/
 
 ---
 
-## Pending (user actions)
+## Mesh files (`data/meshes/`) ✅
 
-- Copy 6 lumen PLY meshes to:
-  - `data/meshes/HH17/HH17_embryo1_lumen.ply` (and embryo2, embryo3)
-  - `data/meshes/HH20/HH20_embryo1_lumen.ply` (and embryo2, embryo3)
+Flat directory, VTK format, date-stamped names. All properties pre-computed inside each file.
+
+| File | Stage |
+|---|---|
+| `2025-09-18-13-02-HH17.vtk` | HH17 |
+| `2025-09-18-14-26-HH17.vtk` | HH17 |
+| `2025-09-18-16-46-HH17.vtk` | HH17 |
+| `2025-09-23-15-48-HH20.vtk` | HH20 |
+| `2025-10-22-12-30-HH20.vtk` | HH20 |
+| `2025-10-23-13-06-HH20.vtk` | HH20 |
+
+Vertex arrays: `Mean_Curvature`, `Gauss_Curvature`, `K1`, `K2`, `thickness`, `phh3`
+
+Load with: `from vedo import Mesh; mesh = Mesh("../data/meshes/2025-09-18-13-02-HH17.vtk")`
