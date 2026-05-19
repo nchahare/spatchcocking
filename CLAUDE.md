@@ -35,9 +35,9 @@ C:\Users\nimes\WorkWorkWork\Playground\2026-03-05-git-spatchcocking\spatchcockin
 
 ---
 
-## Status: notebooks 01–02 complete ✅ | 03–05 not yet updated
+## Status: all notebooks complete ✅
 
-Last commit: `ffde44e`
+Last commit: `73d5bfb`
 
 ---
 

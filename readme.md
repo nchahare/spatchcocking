@@ -46,7 +46,7 @@ Raw confocal image
 | Folder / File | Contents | Paper figures |
 |---|---|---|
 | `src/spatchcocking/` | Installable Python package | All |
-| `notebooks/00_quickstart.ipynb` | End-to-end demo | — |
+| `notebooks/00_mesh_viewer.ipynb` | 3D viewer for all 6 research meshes | — |
 | `notebooks/01_mesh_generation.ipynb` | TIFF → surface mesh | Fig. 1c–d |
 | `notebooks/02_curvature_mapping.ipynb` | Gaussian & Mean curvature | Figs. 3, 4 |
 | `notebooks/03_thickness_mapping.ipynb` | Apico-basal thickness | Fig. 5 |
@@ -55,7 +55,7 @@ Raw confocal image
 | `notebooks/06_figure_plots.ipynb` | Statistical plots from CSV data | Figs. 1, 3–6 |
 | `data/meshes/` | 3 example lumen meshes per stage (6 total) | Figs. 1, 3–6 |
 | `data/csv/` | Per-embryo measurements for figure reproduction | Figs. 1, 3–6 |
-| `segmentation/` | Segmentation workflow documentation | Fig. 1, Methods |
+| `docs/segmentation.md` | Segmentation workflow documentation | Fig. 1, Methods |
 | `finite_element/` | 2D plane-stress FEA (separate environment) | Fig. S9 |
 
 ---
@@ -79,22 +79,27 @@ settings.default_backend = "vtk"
 ## Quick usage
 
 ```python
-import spatchcocking as sp
 from vedo import settings
 settings.default_backend = "vtk"
 
-# Load a mesh and compute Gaussian curvature
-mesh = sp.get_mesh("data/meshes/HH17/HH17_embryo1_lumen.ply")
-mesh = sp.compute_and_save_curvatures(mesh)
+from spatchcocking import *   # re-exports vedo, numpy, os + all pipeline functions
 
-# Extract medial axis and spatchcock to 2D
-axis_points = sp.getAxis(mesh)
-planes = sp.getPlanes(axis_points)
-flat_mesh = sp.getDeformedmesh(mesh, planes, axis_points)
-sp.visualize_flatmesh(flat_mesh, property="Gauss_curvature")
+# Load a pre-computed mesh and inspect scalar fields
+mesh = Mesh("data/meshes/2025-09-18-13-02-HH17.vtk")
+print(mesh.pointdata.keys())  # Mean_Curvature, Gauss_Curvature, K1, K2, thickness, phh3
+
+# Spatchcock a basal mesh to 2D
+basal = Mesh("data/example/basal.ply")
+axispts = np.load("data/example/2025-10-22-12-30-axis.npy")
+endpts  = np.load("data/example/2025-10-22-12-30-endpts.npy")
+
+axis_info     = getPlanes(basal, axispts, endpts)
+deformed_mesh = getDeformedmesh2(basal, axis_info, namefile="2025-10-22-12-30")
+radius, angle, height, dm = get_flatdata2(deformed_mesh)
+norm_height, angle_degrees = normalize_values2(height, angle, shift_deg=-90)
 ```
 
-See [`notebooks/00_quickstart.ipynb`](notebooks/00_quickstart.ipynb) for a full walkthrough.
+See [`notebooks/00_mesh_viewer.ipynb`](notebooks/00_mesh_viewer.ipynb) for an interactive walkthrough of the pre-computed meshes, and notebooks 01–05 for the full pipeline.
 
 ---
 
@@ -110,7 +115,7 @@ See [`notebooks/00_quickstart.ipynb`](notebooks/00_quickstart.ipynb) for a full 
 
 ## Segmentation workflow
 
-Image segmentation (Fiji preprocessing → 3D Slicer volumetric segmentation → napari visualization) requires software outside this Python package. See [`segmentation/README.md`](segmentation/README.md) for the full protocol.
+Image segmentation (Fiji preprocessing → 3D Slicer volumetric segmentation → napari visualization) requires software outside this Python package. See [`docs/segmentation.md`](docs/segmentation.md) for the full protocol.
 
 ---
 
