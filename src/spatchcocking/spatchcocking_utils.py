@@ -423,7 +423,7 @@ def getProperCurvature(msh, depth,
     for i in progressbar(range(msh1.npoints)):
         ids = msh1.find_adjacent_vertices(i, depth=depth, adjacency_list=adlist)
         bpts = msh1.points[ids]
-        _, res = project_point_on_variety(pts1[i], bpts, degree=2, compute_curvature=True)
+        _, res = project_point_on_variety(pts1[i], bpts, degree=2)
         curvs_g.append(res[4])
         curvs_m.append(res[5])
     
@@ -1507,4 +1507,158 @@ def normalize_values2(height, angle, shift_deg=0):
 
 
 
+def transfer_points_to_mesh(mesh, pts_data, scalar_name, show_result=True):
+    """Interpolates scalar values from a point cloud onto a mesh surface.
+
+    This function takes a 2D array containing spatial coordinates and scalar 
+    values, converts it into a vedo Points object, and uses it to interpolate 
+    data onto the target mesh using a nearest-neighbors approach.
+
+    Args:
+        mesh: A vedo.Mesh object representing the target surface.
+        pts_data: A numpy.ndarray of shape (N, 4). The first three columns 
+            must be XYZ coordinates, and the fourth column must be the 
+            scalar value (e.g., thickness).
+        scalar_name: A string representing the name of the data field to 
+            be created on the mesh. Defaults to "thickness".
+        n_neighbors: An integer specifying the number of nearest points 
+            to consider for the interpolation. Defaults to 5.
+        show_result: A boolean. If True, opens a vedo window to visualize 
+            the result. Defaults to True.
+
+    Returns:
+        A vedo.Mesh object containing the interpolated scalar data.
+
+    Raises:
+        ValueError: If pts_data does not have exactly 4 columns.
+    """
+    if pts_data.shape[1] != 4:
+        raise ValueError(f"Expected array shape (N, 4), got {pts_data.shape}")
     
+    n_neighbors = 5
+
+    # Create a clone to prevent modifying the original mesh object
+    mesh_output = mesh.clone()
+
+    # Split coordinates from scalar values
+    coords = pts_data[:, :3]
+    scalars = pts_data[:, 3]
+
+    # Initialize vedo Points object for interpolation source
+    v_points = Points(coords, r=10)
+    v_points.pointdata[scalar_name] = scalars
+    
+    # Perform the spatial interpolation onto the mesh
+    mesh_output.interpolate_data_from(v_points, n=n_neighbors)
+
+    # Visualization and color mapping
+    if show_result:
+        mesh_output.cmap("viridis", scalar_name).add_scalarbar()
+        print(f"Interpolation complete. Field '{scalar_name}' added.")
+        show(mesh_output).close()
+
+    return mesh_output
+
+
+import numpy as np
+from vedo import Plotter
+from vedo import project_point_on_variety, progressbar
+
+def compute_and_save_curvatures(msh, depth=5, degree=2, save_name=None, check=False):
+    """
+    Calculate Gaussian, Mean, and Principal curvatures (k1, k2), 
+    optionally save to .npy, and visualize.
+    """
+    # 1. Prepare the mesh and calculate reference normals
+    msh1 = msh.clone()
+    msh1.compute_normals() 
+    adlist = msh1.compute_adjacency()
+
+    # 2. Compute Curvatures
+    gauss_vals, mean_vals = [], []
+    pts = msh1.points
+    normals = msh1.vertex_normals
+
+    print("Calculating surface curvatures...")
+    for i in progressbar(range(msh1.npoints)):
+        ids = msh1.find_adjacent_vertices(i, depth=depth, adjacency_list=adlist)
+        
+        # Calculate local polynomial fit using the vertex normal to prevent flipping
+        _, poly, _ = project_point_on_variety(
+            pts[i], 
+            pts[ids],
+            degree=degree,
+            normal=normals[i] 
+        )
+        gauss_vals.append(poly[3])
+        
+        # You applied *-1 here, which is perfectly fine to flip the H convention
+        mean_vals.append(poly[4] * -1)
+
+    gauss_vals = np.array(gauss_vals)
+    mean_vals  = np.array(mean_vals)
+
+    # --- NEW: Calculate Principal Curvatures k1 and k2 ---
+    # We use np.maximum to prevent negative values inside the sqrt 
+    # caused by tiny floating-point precision errors where H^2 ~= K
+    discriminant = np.maximum(mean_vals**2 - gauss_vals, 0)
+    k1_vals = mean_vals + np.sqrt(discriminant)
+    k2_vals = mean_vals - np.sqrt(discriminant)
+
+    # 3. Add data to the mesh pointdata
+    msh1.pointdata["Gauss_Curvature"] = gauss_vals
+    msh1.pointdata["Mean_Curvature"] = mean_vals
+    msh1.pointdata["K1"] = k1_vals
+    msh1.pointdata["K2"] = k2_vals
+
+    # 4. Save to .npy (X, Y, Z, Gauss, Mean, K1, K2)
+    if save_name:
+        combined = np.hstack((
+            pts, 
+            gauss_vals.reshape(-1, 1), 
+            mean_vals.reshape(-1, 1),
+            k1_vals.reshape(-1, 1),
+            k2_vals.reshape(-1, 1)
+        ))
+        file_path = f"{save_name}-curvatures.npy"
+        np.save(file_path, combined)
+        print(f"Saved curvature data to: {file_path}")
+        
+
+    # 5. Simple Check Visualization
+    if check:
+        # Use percentiles to prevent extreme outliers from washing out the colors
+       
+        vmin_g, vmax_g = getTightercmap(gauss_vals) # just to visualize the curvatures
+        vmin_m, vmax_m = getTightercmap(mean_vals) # just to visualize the curvatures
+        vmin_k1, vmax_k1 = getTightercmap(k1_vals) # just to visualize the curvatures
+        vmin_k2, vmax_k2 = getTightercmap(k2_vals) # just to visualize the curvatures
+        
+        
+        # Fallbacks in case the mesh is completely flat
+        vmax_g = vmax_g if vmax_g > 0 else 1.0
+        vmax_m = vmax_m if vmax_m > 0 else 1.0
+        vmax_k1 = vmax_k1 if vmax_k1 > 0 else 1.0
+        vmax_k2 = vmax_k2 if vmax_k2 > 0 else 1.0
+
+        msh_m = msh1.clone().lighting("glossy")
+        msh_m.cmap("PuOr_r", "Mean_Curvature", vmin=-vmax_m, vmax=vmax_m).add_scalarbar()
+
+        msh_g = msh1.clone().lighting("glossy")
+        msh_g.cmap("coolwarm", "Gauss_Curvature", vmin=-vmax_g, vmax=vmax_g).add_scalarbar()
+        
+        msh_k1 = msh1.clone().lighting("glossy")
+        msh_k1.cmap("viridis", "K1", vmin=-vmax_k1, vmax=vmax_k1).add_scalarbar()
+
+        msh_k2 = msh1.clone().lighting("glossy")
+        msh_k2.cmap("plasma", "K2", vmin=-vmax_k2, vmax=vmax_k2).add_scalarbar()
+
+        # Show side-by-side in a 2x2 grid (N=4)
+        plt = Plotter(N=4, axes=4, size=(1600, 1600))
+        plt.at(0).show("Mean Curvature (H)", msh_m)
+        plt.at(1).show("Gaussian Curvature (K)", msh_g)
+        plt.at(2).show("Max Principal Curvature (K1)", msh_k1)
+        plt.at(3).show("Min Principal Curvature (K2)", msh_k2)
+        plt.interactive().close()
+
+    return msh1
