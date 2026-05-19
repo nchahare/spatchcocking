@@ -25,7 +25,7 @@ print(files_to_show)
 
 # %%
 # --- Parameters ---
-file_index = 2  # which mesh to inspect: 0-2 = HH17, 3-5 = HH20
+file_index = 5  # which mesh to inspect: 0-2 = HH17, 3-5 = HH20
 cmap_limit = 2  # sigma clipping: colour range is clipped at ±N std deviations
 #                 lower = more contrast in the core distribution, outliers saturate
 
