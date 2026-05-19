@@ -1724,3 +1724,272 @@ plot_density(
 )
 
 plt.show()
+
+
+# %% [markdown]
+# ## Single-embryo heatmap
+#
+# Interpolates one scalar field from a single embryo onto a regular 500×500
+# grid and displays it as a dorsoventral × rostrocaudal heatmap.
+#
+# **CSV**: `spatchcocked_measurements.csv` (or any CSV with the same columns)
+# Columns required: `timepoint`, `norm_height`, `angle_degrees`, + the scalar
+#
+# **Parameters to adjust:**
+# - `TARGET_TIMEPOINT` — date-stamp string identifying the embryo
+# - `TARGET_PROPERTY`  — column name to plot (see `property_map` below)
+# - `master_csv`       — path to the spatchcocked measurements CSV
+
+# %%
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+from scipy.interpolate import griddata
+
+# --- Helper: symmetric colour range clipped at median ± sigma × std ---
+def getTightercmap(values, sigma=3):
+    """Return (vmin, vmax) clipped at median ± sigma × std."""
+    return (np.median(values) - sigma * np.std(values),
+            np.median(values) + sigma * np.std(values))
+
+# --- Property metadata: (axis label, colormap, symmetric range?, exponent) ---
+property_map = {
+    "Gauss_Curvature": (r"Gaussian Curvature [$\mu m^{-2}$]", "PiYG",       True,  -6),
+    "Mean_Curvature":  (r"Mean Curvature [$\mu m^{-1}$]",     "PiYG",       True,  -3),
+    "K1":              (r"Max principal k1 [$\mu m^{-1}$]",   "Spectral_r", True,  -3),
+    "K2":              (r"Min principal k2 [$\mu m^{-1}$]",   "Spectral_r", True,  -3),
+    "thickness":       (r"Thickness [$\mu m$]",                "GnBu",       False,  0),
+    "phh3":            (r"Local pHH3+ cell count",             "viridis",    False,  0),
+}
+
+# %%
+# --- Parameters ---
+TARGET_TIMEPOINT = "2025-09-18-13-02"   # embryo to plot
+TARGET_PROPERTY  = "Gauss_Curvature"    # column to visualise (see property_map keys)
+master_csv       = "../data/csv/spatchcocked_measurements.csv"
+
+# --- Load and filter ---
+df_full = pd.read_csv(master_csv)
+df = df_full[df_full["timepoint"] == TARGET_TIMEPOINT].copy()
+print(f"Embryo {TARGET_TIMEPOINT}: {len(df)} vertices")
+
+label, cmap_name, is_curv, exp = property_map[TARGET_PROPERTY]
+
+# Rostrocaudal: flip so rostral (norm_height ≈ 1) appears at top of plot
+y_coord = 1 - df["norm_height"]   # 0 = rostral, 1 = caudal
+x_coord = df["angle_degrees"]     # −180 to +180
+
+z = df[TARGET_PROPERTY]
+
+# --- Interpolate onto a regular 500×500 grid ---
+# Normalise both axes to [0,1] for griddata, then map back for display
+y_norm = (y_coord - y_coord.min()) / (y_coord.max() - y_coord.min())
+x_norm = (x_coord - x_coord.min()) / (x_coord.max() - x_coord.min())
+
+grid_size = 500
+xi, yi = np.meshgrid(np.linspace(0, 1, grid_size),
+                     np.linspace(0, 1, grid_size))
+zi = griddata((x_norm, y_norm), z, (xi, yi), method="linear")
+
+# --- Colour limits ---
+vmin, vmax = getTightercmap(z, sigma=3)
+if is_curv:
+    vlim = max(abs(vmin), abs(vmax))
+    vmin, vmax = -vlim, vlim
+else:
+    vmin = 0   # non-curvature fields start at zero
+
+# --- Plot ---
+line_width = 1.5
+plt.rcParams.update({
+    "font.size": 12,
+    "axes.labelsize": 14,
+    "axes.titlesize": 14,
+    "xtick.major.width": line_width,
+    "ytick.major.width": line_width,
+    "axes.linewidth": line_width,
+})
+
+fig = plt.figure(figsize=(4, 4), dpi=100)
+ax  = fig.add_axes([0.15, 0.1, 0.65, 0.8])
+
+im = ax.imshow(zi,
+               extent=[x_coord.min(), x_coord.max(),
+                       y_coord.min(), y_coord.max()],
+               origin="lower", aspect="auto",
+               cmap=cmap_name, vmin=vmin, vmax=vmax)
+
+ax.invert_yaxis()   # rostral at top
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+ax.set_xticks([-180, -90, 0, 90, 180])
+ax.set_xlabel("Dorsoventral axis")
+ax.set_ylabel("Rostrocaudal axis")
+
+cbar = plt.colorbar(im, ax=ax, orientation="vertical", pad=0.05)
+
+# Scientific notation for curvature values or very small numbers
+if is_curv or z.abs().max() < 0.1:
+    mult = 10 ** exp
+    cbar.ax.yaxis.set_major_formatter(
+        ticker.FuncFormatter(lambda val, pos, m=mult: f"{val/m:g}")
+    )
+    cbar.ax.text(0.5, 1.02, f"$\\times 10^{{{exp}}}$",
+                 transform=cbar.ax.transAxes, ha="center", va="bottom")
+
+cbar.set_label(label, labelpad=10)
+plt.show()
+
+
+# %% [markdown]
+# ## Stage-averaged binned heatmap
+#
+# Bins all embryos of one stage into a 50-row RC grid × 10°-wide DV columns,
+# takes the mean of each bin, and displays as a seaborn heatmap.
+# This is the multi-embryo average map used in the paper figures.
+#
+# **Parameters to adjust:**
+# - `TARGET_PROPERTY` — column to visualise (see `property_map` keys)
+# - `TARGET_STAGE`    — `"hh17"` or `"hh20"` (lowercase)
+# - `master_csv`      — path to the spatchcocked measurements CSV
+#
+# **Output:** SVG saved as `average_{TARGET_PROPERTY}_{TARGET_STAGE}.svg`
+
+# %%
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+import seaborn as sns
+
+# %%
+# ==========================================
+# CONFIGURATION & TARGETS
+# ==========================================
+
+# TARGET_PROPERTY = "Gauss_Curvature"
+# TARGET_STAGE    = "hh17"
+# TARGET_PROPERTY = "Mean_Curvature"
+# TARGET_STAGE    = "hh20"
+# TARGET_PROPERTY = "thickness"
+# TARGET_STAGE    = "hh17"
+
+TARGET_PROPERTY = "phh3"
+TARGET_STAGE    = "hh17"
+
+master_csv = "../data/csv/spatchcocked_measurements.csv"
+dpival     = 100
+
+# Styling
+line_width = 1.5
+font_size  = 13
+plt.rcParams.update({
+    'font.size':        font_size,
+    'axes.labelsize':   font_size + 2,
+    'xtick.major.width': line_width,
+    'ytick.major.width': line_width,
+    'xtick.major.size': 6,
+    'ytick.major.size': 6,
+    'axes.linewidth':   line_width,
+    'svg.fonttype':     'none'
+})
+
+property_map = {
+    "Gauss_Curvature": (r"Gaussian Curvature [$\mu m^{-2}$]", "PiYG",    True,  -5),
+    "Mean_Curvature":  (r"Mean Curvature [$\mu m^{-1}$]",     "PiYG",    True,  -3),
+    "thickness":       (r"Thickness [$\mu m$]",                "GnBu",    False,  0),
+    "phh3":            (r"Local pH3+ cell count",              "viridis", False,  0),
+}
+
+label, cmap_name, is_curv, exponent = property_map[TARGET_PROPERTY]
+multiplier = 10 ** exponent
+
+# ==========================================
+# DATA PROCESSING
+# ==========================================
+df = pd.read_csv(master_csv)
+
+# Bin vertices into RC (50 bins, rostral at top) × DV (10° bins)
+df['rc_bin']           = pd.cut(1 - df['norm_height'], bins=50)
+df['bin_center']       = df['rc_bin'].apply(lambda x: x.mid).astype(float)
+df['angle_bin']        = pd.cut(df['angle_degrees'], bins=np.arange(-180, 190, 10))
+df['angle_bin_center'] = df['angle_bin'].apply(lambda x: x.mid).astype(float)
+
+df_stage = df[df['stage'] == TARGET_STAGE].copy()
+print(f"Stage {TARGET_STAGE}: {len(df_stage)} vertices")
+
+# ==========================================
+# PLOTTING
+# ==========================================
+fig = plt.figure(figsize=(5, 5), dpi=dpival)
+ax  = fig.add_axes([0.15, 0.15, 0.7, 0.75])
+
+# Mean per bin, pivot to 2D; interpolate gaps and fill remaining NaN
+grouped = (df_stage
+           .groupby(['bin_center', 'angle_bin_center'], observed=False)[TARGET_PROPERTY]
+           .mean()
+           .reset_index())
+pivot = grouped.pivot(index='bin_center', columns='angle_bin_center', values=TARGET_PROPERTY)
+pivot = pivot.interpolate(axis=1).fillna(0).sort_index(ascending=True)
+
+# Colour limits: 95th percentile of absolute values
+raw_data  = df_stage[TARGET_PROPERTY].dropna()
+v_max_avg = np.percentile(np.abs(raw_data), 95)
+if exponent != 0:
+    v_max_avg = np.ceil(v_max_avg / (multiplier * 0.5)) * (multiplier * 0.5)
+v_min_avg = -v_max_avg if is_curv else 0
+
+sns.heatmap(
+    pivot,
+    cmap=cmap_name,
+    vmin=v_min_avg, vmax=v_max_avg,
+    ax=ax,
+    linewidths=0.5,
+    linecolor='white',
+    xticklabels=False,
+    yticklabels=False,
+    cbar=False
+)
+
+# ==========================================
+# STYLING & COLORBAR
+# ==========================================
+for _, spine in ax.spines.items():
+    spine.set_visible(True)
+    spine.set_linewidth(line_width)
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+
+ax.set_xlabel('Dorsoventral axis',  labelpad=10)
+ax.set_ylabel('Rostrocaudal axis',  labelpad=10)
+
+# Index-based tick positions — find nearest bin centre to each target value
+target_y = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+target_x = [-180, -90, 0, 90, 180]
+
+y_pos = [np.abs(pivot.index.values   - t).argmin() + 0.5 for t in target_y]
+x_pos = [np.abs(pivot.columns.values - t).argmin() + 0.5 for t in target_x]
+
+ax.set_yticks(y_pos)
+ax.set_yticklabels([f"{t:.1f}" for t in target_y], rotation=0)
+ax.set_xticks(x_pos)
+ax.set_xticklabels([str(t) for t in target_x])
+
+# Colorbar
+cbar = fig.colorbar(ax.collections[0], ax=ax, orientation='vertical', pad=0.05)
+cbar.outline.set_linewidth(line_width)
+cbar.ax.tick_params(width=line_width, size=6)
+cbar.set_label(label, labelpad=10)
+
+if exponent != 0:
+    cbar.ax.yaxis.set_major_formatter(
+        ticker.FuncFormatter(lambda x, pos: f'{int(round(x / multiplier))}')
+    )
+    cbar.ax.text(0.5, 1.03, f'$\\times 10^{{{exponent}}}$',
+                 transform=cbar.ax.transAxes, ha='center', va='bottom')
+
+# ax.set_title(f"Stage Average: {TARGET_STAGE}", pad=20)
+
+plt.savefig(f"average_{TARGET_PROPERTY}_{TARGET_STAGE}.svg", format='svg', bbox_inches='tight')
+plt.show()
