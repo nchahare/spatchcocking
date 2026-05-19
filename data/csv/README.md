@@ -1,36 +1,82 @@
 # CSV data files
 
-This folder contains the per-embryo measurement data used to generate the statistical figures in the paper. These CSVs allow readers to reproduce all plots without re-running the full image analysis pipeline.
+Pre-computed measurements used to reproduce the statistical figures in the paper.
+All files are comma-separated (UTF-8).  Run `notebooks/06_figure_plots.py` to
+regenerate all plots.
 
-## Files
+---
 
-| File | Contents | Paper figures |
+## `spatchcocked_measurements.csv`
+
+Vertex-level measurements extracted from the spatchcocked lumen meshes
+(one row per mesh vertex per embryo).  Used by Figs 3–6 and Supp Fig 1.
+
+| Column | Units | Description |
 |---|---|---|
-| *(to be populated)* | | |
+| `stage` | — | Developmental stage (`hh17` or `hh20`) |
+| `timepoint` | — | Embryo identifier |
+| `radius` | µm | Local lumen radius at this vertex |
+| `norm_height` | 0–1 | Normalised rostral-caudal position (0 = rostral, 1 = caudal) |
+| `angle_degrees` | ° | Dorso-ventral angle (0° = dorsal midline, ±180° = ventral) |
+| `thickness` | µm | Apico-basal wall thickness (lumen to basal surface) |
+| `phh3` | cell count | Local pHH3+ mitotic cell density within R = 100 µm |
+| `Gauss_Curvature` | µm⁻² | Gaussian curvature *K* |
+| `Mean_Curvature` | µm⁻¹ | Mean curvature *H* |
+| `K1` | µm⁻¹ | Maximum principal curvature |
+| `K2` | µm⁻¹ | Minimum principal curvature |
 
-> **Note:** This README will be updated when CSV files are added. The column descriptions below apply once files are present.
+**Compartment assignment** (applied in the plotting script):
+- HH17: Forebrain `norm_height > 0.80`, Midbrain `0.60–0.80`, Hindbrain `< 0.60`
+- HH20: Forebrain `norm_height > 0.75`, Midbrain `0.55–0.75`, Hindbrain `< 0.55`
 
-## Common columns
+---
 
-Most CSV files share these columns:
+## `cross_section_area.csv`
 
-| Column | Description |
-|---|---|
-| `stage` | Developmental stage (`HH17` or `HH20`) |
-| `embryo_id` | Embryo identifier (e.g., `E1`–`E7`) |
-| `compartment` | Brain region (`FB` = forebrain, `MB` = midbrain, `HB` = hindbrain) |
+Cross-sectional lumen area sampled along the rostral-caudal axis.  Used by Fig 1j.
 
-## Loading in Python
+| Column | Units | Description |
+|---|---|---|
+| `z_grid` | µm | Position along the rostral-caudal axis |
+| `area` | µm² | Lumen cross-section area |
+| `stage` | — | `HH17` or `HH20` |
+| `type` | — | `individual` = per-embryo; `mean` = group mean |
+| `sample_id` | — | Embryo identifier |
 
-```python
-import pandas as pd
-df = pd.read_csv("data/csv/lumen_measurements.csv")
-```
+---
+
+## `compartment_lengths.csv`
+
+Lumen length and compartment boundary positions per embryo.  Used by Fig 1e and Supp Fig 1.
+
+| Column | Units | Description |
+|---|---|---|
+| `stage` | — | `hh17` or `hh20` |
+| `end` | µm | Total lumen length |
+| `mhb` | µm | Midbrain–hindbrain boundary position along RC axis |
+| `fmb` | µm | Forebrain–midbrain boundary position along RC axis |
+
+Compartment lengths: Hindbrain = `mhb`, Midbrain = `fmb − mhb`, Forebrain = `end − fmb`.
+
+---
+
+## `lumen_geometry.csv`
+
+Surface area and volume of each brain vesicle per embryo.  Used by Figs 1f–i and Supp Fig 1.
+
+| Column | Units | Description |
+|---|---|---|
+| `Sample_ID` | — | Embryo identifier |
+| `Stage` | — | `HH17` or `HH20` |
+| `Region` | — | `Forebrain`, `Midbrain`, or `Hindbrain` |
+| `Area` | µm² | Lumen surface area |
+| `Volume` | µm³ | Lumen volume |
+
+---
 
 ## Statistical methods
 
-All group comparisons between stages and compartments were performed using two-sample Welch's t-tests (`scipy.stats.ttest_ind`). Correlations between tissue properties and curvature used Pearson's r (`scipy.stats.pearsonr`). Cross-stage DV pattern comparisons used Spearman's ρ (`scipy.stats.spearmanr`). See Methods section of the paper for full details.
-
-## Reproduction
-
-`notebooks/06_figure_plots.ipynb` reads these CSV files and reproduces the statistical plots from the paper.
+All pairwise comparisons: Welch's t-test (`scipy.stats.ttest_ind`).  
+Significance: `*` p < 0.05, `**` p < 0.01, `***` p < 0.001, `ns` not significant.  
+Thickness–curvature correlations: Pearson *r* on quantile-binned data (10 bins per stage).  
+Cross-stage spatial patterns: Spearman ρ on 40 equal-width DV bins.

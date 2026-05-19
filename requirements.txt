@@ -20,6 +20,7 @@ vtk
 matplotlib
 seaborn
 matplotlib-inline
+statannotations
 
 # Utilities
 loguru
