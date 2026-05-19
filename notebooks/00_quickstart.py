@@ -1,12 +1,15 @@
 # %% [markdown]
 # # Quickstart: visualising all example meshes
 #
-# This script loads all 6 example lumen meshes (3 × HH17, 3 × HH20) and
-# displays them in a 2×3 grid coloured by Mean Curvature.
+# This script loads all 6 example lumen meshes (3 × HH17, 3 × HH20) from
+# `data/meshes/` and demonstrates three levels of visualization:
 #
-# The VTK files already contain all pre-computed vertex properties
-# (curvature, thickness, pHH3 density) so no processing is needed —
-# just load and plot.
+# 1. **Overview grid** — all 6 meshes by stage (flat colour)
+# 2. **Stage comparison** — two meshes side-by-side coloured by Gaussian curvature
+# 3. **Property explorer** — one mesh showing all 6 scalar fields in a 2×3 grid
+#
+# The VTK files already contain all pre-computed vertex properties so no
+# processing is needed — just load and plot.
 #
 # **Available vertex properties in each mesh:**
 # | Array name | Description | Colormap |
@@ -25,106 +28,147 @@
 # ```
 
 # %%
+# use vedo
+# turn on this for Jupyter notebook
 from vedo import settings
 settings.default_backend = "vtk"
 
-# %%
-from glob import glob
-from pathlib import Path
-from vedo import Mesh, Plotter
+from spatchcocking import *
 
 # %% [markdown]
-# ## Load meshes
+# ## Find all mesh files
 #
-# Meshes are in `data/meshes/` as VTK files named by acquisition date and stage.
+# Meshes live in `../data/meshes/` as VTK files with date-stamped names:
+# `{YYYY-MM-DD-HH-MM}-{stage}.vtk`
 
 # %%
-hh17_files = sorted(glob("../data/meshes/*HH17.vtk"))
-hh20_files = sorted(glob("../data/meshes/*HH20.vtk"))
+import pathlib
+import vedo
 
-print(f"HH17 meshes ({len(hh17_files)}):")
-for f in hh17_files:
-    print(f"  {Path(f).name}")
+# 1. Define the mesh directory and separate by stage
+mesh_dir = pathlib.Path("../data/meshes")
 
-print(f"\nHH20 meshes ({len(hh20_files)}):")
-for f in hh20_files:
-    print(f"  {Path(f).name}")
+hh17_files = sorted(mesh_dir.glob("*HH17.vtk"))
+hh20_files = sorted(mesh_dir.glob("*HH20.vtk"))
+
+# Combine: HH17 first, then HH20 — gives natural 2×3 row layout
+all_vtk_files = hh17_files + hh20_files
+
+print(f"HH17 ({len(hh17_files)} files):", [f.name for f in hh17_files])
+print(f"HH20 ({len(hh20_files)} files):", [f.name for f in hh20_files])
+
+# We need exactly 6 for a 2x3 grid
+files_to_show = all_vtk_files[:6]
+
+print("\nFiles to show:")
+print(files_to_show)
 
 # %% [markdown]
-# ## 2×3 overview — Mean Curvature
-#
-# Row 1: HH17 (stage ~66 hr incubation)
-# Row 2: HH20 (stage ~90 hr incubation)
-#
-# Colour encodes Mean Curvature H (µm⁻¹).
-# - Green (positive H): locally dome-shaped, outward bending
-# - Purple (negative H): locally invaginated / inward bending
-#
-# The three vesicles (forebrain, midbrain, hindbrain) are visible as
-# distinct bulges along the rostro-caudal axis.
+# ## Overview: all 6 meshes coloured by stage
 
 # %%
-PROP   = "Mean_Curvature"
-CMAP   = "PiYG"
+plt = Plotter(N=6, axes=4, size=(1800, 1200), sharecam=False)
 
-plt = Plotter(shape=(2, 3), offscreen=True, size=(1800, 1000))
+# Loop through files and assign to subplots
+for i, file_path in enumerate(files_to_show):
+    # Load and color the mesh
+    msh = Mesh(str(file_path))
 
-for col, path in enumerate(hh17_files):
-    mesh = Mesh(path)
-    mesh.cmap(CMAP, mesh.pointdata[PROP])
-    label = f"HH17  {Path(path).stem[:10]}"
-    plt.at(0, col).show(mesh, label, axes=0, resetcam=True)
+    # Simple color switch based on stage in filename
+    color = "tomato" if "hh17" in str(file_path).lower() else "seagreen"
+    msh.color(color)  # .lighting("glossy")
 
-for col, path in enumerate(hh20_files):
-    mesh = Mesh(path)
-    mesh.cmap(CMAP, mesh.pointdata[PROP])
-    label = f"HH20  {Path(path).stem[:10]}"
-    plt.at(1, col).show(mesh, label, axes=0, resetcam=True)
+    # Assign mesh to the specific subplot index
+    plt.at(i).show(msh, f"File {i}: {file_path.name}")
 
-plt.screenshot("all_meshes_mean_curvature.png")
-plt.close()
+# Final render and interaction
+print(f"Showing {len(files_to_show)} meshes in grid...")
+plt.interactive().close()
 
-from IPython.display import Image
-Image("all_meshes_mean_curvature.png")
+# %%
+print(msh)
 
 # %% [markdown]
-# ## Inspect a single mesh
+# ## Stage comparison: two meshes side-by-side
 #
-# Load one mesh and list all available vertex arrays.
+# Pick one representative embryo from each stage and compare their
+# Gaussian curvature distributions.
+#
+# Change `target_indices` to select different embryos:
+# - Indices 0–2 → HH17 (rostral to caudal order)
+# - Indices 3–5 → HH20
 
 # %%
-mesh = Mesh(hh17_files[0])
-print(f"Mesh: {mesh.npoints} vertices, {mesh.ncells} faces")
-print("Vertex arrays:", list(mesh.pointdata.keys()))
+from vedo import Plotter, Mesh
+
+# Select one HH17 and one HH20 embryo
+target_indices = [2, 5]
+selected_files = [all_vtk_files[i] for i in target_indices]
+
+# Initialize Plotter for 2 subplots (1×2 grid)
+plt = Plotter(N=2, axes=4, size=(1600, 800), sharecam=False)
+
+for i, file_path in enumerate(selected_files):
+    msh = Mesh(str(file_path)).add_scalarbar()
+    msh.cmap("PiYG", "Gauss_Curvature")
+    original_idx = target_indices[i]
+    plt.at(i).show(msh)
+
+plt.interactive().close()
 
 # %% [markdown]
-# ## Visualize a different property
+# ## Property explorer: all 6 scalar fields on one mesh
 #
-# Change `PROP` and `CMAP` to explore other scalar fields.
-# Available combinations:
-# - `("Gauss_Curvature", "PiYG")`
-# - `("thickness", "GnBu")`
-# - `("K1", "Spectral_r")`
-# - `("K2", "Spectral_r")`
-# - `("phh3", "viridis")`
+# Visualize every pre-computed property on a single embryo.
+# Change `file_index` (0–5) to switch embryo;
+# `cmap_limit` controls the sigma clipping of the colour range.
 
 # %%
-PROP = "thickness"
-CMAP = "GnBu"
+file_index = 5
+cmap_limit = 2
 
-plt = Plotter(shape=(2, 3), offscreen=True, size=(1800, 1000))
+from vedo import Plotter, Mesh
+import numpy as np
 
-for col, path in enumerate(hh17_files):
-    mesh = Mesh(path)
-    mesh.cmap(CMAP, mesh.pointdata[PROP])
-    plt.at(0, col).show(mesh, f"HH17  {Path(path).stem[:10]}", axes=0, resetcam=True)
+# Setup Plotter for 6 fields in a 2×3 grid
+plt = Plotter(N=6, axes=4, sharecam=True, size=(1800, 1000))
+mesh1 = Mesh(all_vtk_files[file_index])
 
-for col, path in enumerate(hh20_files):
-    mesh = Mesh(path)
-    mesh.cmap(CMAP, mesh.pointdata[PROP])
-    plt.at(1, col).show(mesh, f"HH20  {Path(path).stem[:10]}", axes=0, resetcam=True)
+# Define the fields, titles, and preferred colormaps
+# Curvatures benefit from diverging maps (PiYG, RdBu);
+# density/thickness use sequential maps (viridis, GnBu)
+fields = [
+    ("Gauss_Curvature", "Gaussian Curvature",   "PiYG"),
+    ("Mean_Curvature",  "Mean Curvature",        "PiYG"),
+    ("thickness",       "Thickness",             "GnBu"),
+    ("K1",              "Max Principal (K1)",    "Spectral_r"),
+    ("K2",              "Min Principal (K2)",    "Spectral_r"),
+    ("phh3",            "PHH3 Intensity",        "viridis"),
+]
 
-plt.screenshot("all_meshes_thickness.png")
-plt.close()
+for i, (name, title, colormap) in enumerate(fields):
+    if name in mesh1.pointdata.keys():
+        msh_alt = mesh1.clone()
+        data_values = msh_alt.pointdata[name]
 
-Image("all_meshes_thickness.png")
+        # Calculate colour limits with sigma clipping
+        vmin, vmax = getTightercmap(data_values, cmap_limit)
+
+        # For curvatures: force symmetry around zero
+        if any(key in name for key in ["Curvature", "K1", "K2"]):
+            vmax = max(abs(vmin), abs(vmax))
+            vmin = -vmax
+
+        # For physical dimensions / density: force 0 as floor
+        elif name in ["thickness", "phh3"]:
+            vmin = 0
+
+        msh_alt.cmap(colormap, name, vmin=vmin, vmax=vmax)
+        msh_alt.add_scalarbar(title=title, label_format=":6.1e")
+
+        plt.at(i).show(msh_alt, f"Field: {name}")
+    else:
+        plt.at(i).show(f"Data '{name}' not found")
+
+# Render everything
+plt.interactive().close()
