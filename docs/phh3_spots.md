@@ -22,7 +22,7 @@ In Imaris, create a **Spots** object on the pHH3 channel:
 
 1. Open the `.ims` file
 2. **Add new Spots** → enable *Detect spots close to surface* if needed
-3. Set an appropriate estimated diameter (typically 5–10 µm for nuclei)
+3. Set an appropriate estimated diameter (typically 10-20 µm for nuclei)
 4. Apply intensity and quality thresholds to filter out background
 5. Name the Spots object (e.g. `phh3-filter`)
 
