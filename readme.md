@@ -60,7 +60,7 @@ The `spatchcocking` Python package takes its name from this transformation, but 
 | `data/csv/` | Per-embryo measurements for figure reproduction | Figs. 1, 3–6 |
 | `data/example/` | Single-embryo trial dataset (masks, meshes, npys, CSV) | Methods |
 | `docs/segmentation.md` | Segmentation workflow (Fiji → 3D Slicer → napari) | Fig. 1, Methods |
-| `finite_element/` | 2D plane-stress FEA (separate environment) | Fig. S9 |
+| `finite_element/` | 2D plane-stress FEA + notebook (separate environment) | Fig. S9 |
 
 ---
 
@@ -127,7 +127,7 @@ Image segmentation (Fiji preprocessing → 3D Slicer volumetric segmentation →
 
 ## Finite element analysis
 
-The 2D plane-stress FEA (Fig. S9) requires [SolidsPy](https://github.com/AppliedMechanics-EAFIT/SolidsPy) and runs in a separate conda environment. See [`finite_element/README.md`](finite_element/README.md).
+The 2D plane-stress FEA (Fig. S9) requires [SolidsPy](https://github.com/AppliedMechanics-EAFIT/SolidsPy) and runs in a separate conda environment. The folder contains `fem_plane_stress.py`, an interactive `notebook-fem.ipynb`, and the pre-computed input files (`mater.txt`, `nodes.txt`, `eles.txt`, `loads.txt`) so the model can be inspected and re-run without regenerating inputs from scratch. See [`finite_element/README.md`](finite_element/README.md).
 
 ---
 
