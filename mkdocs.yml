@@ -1,0 +1,52 @@
+site_name: spatchcocking
+site_url: https://nchahare.github.io/spatchcocking/
+repo_url: https://github.com/nchahare/spatchcocking
+repo_name: nchahare/spatchcocking
+docs_dir: docs
+
+hooks:
+  - hooks.py
+
+plugins:
+  - search
+  - mkdocs-jupyter:
+      execute: false
+      include_source: true
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: blue grey
+      accent: teal
+  features:
+    - navigation.tabs
+    - navigation.top
+    - content.code.copy
+    - toc.follow
+
+nav:
+  - Home: index.md
+  - Method: spatchcocking_method.md
+  - Pipeline:
+    - Segmentation: segmentation.md
+    - pHH3 Spots: phh3_spots.md
+  - API Reference: api_reference.md
+  - Notebooks:
+    - '00 — Mesh viewer': notebooks/00_mesh_viewer.ipynb
+    - '01 — Mesh generation': notebooks/01_mesh_generation.ipynb
+    - '02 — Curvature mapping': notebooks/02_curvature_mapping.ipynb
+    - '03 — Thickness mapping': notebooks/03_thickness_mapping.ipynb
+    - '04 — pHH3 density mapping': notebooks/04_pHH3_density_mapping.ipynb
+    - '05 — Spatchcocking': notebooks/05_spatchcocking.ipynb
+    - '06 — Figure plots': notebooks/06_figure_plots.ipynb
+    - 'FEA — Finite element analysis': notebooks/notebook-fem.ipynb
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - admonition
+  - tables
+  - toc:
+      permalink: true
