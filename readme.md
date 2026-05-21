@@ -49,18 +49,19 @@ The `spatchcocking` Python package takes its name from this transformation, but 
 | Folder / File | Contents | Paper figures |
 |---|---|---|
 | `src/spatchcocking/` | Installable Python package | All |
-| `notebooks/00_mesh_viewer.ipynb` | 3D viewer for meshes | — |
-| `notebooks/01_mesh_generation.ipynb` | TIFF mask → surface mesh | Fig. 1c–d |
-| `notebooks/02_curvature_mapping.ipynb` | Gaussian & Mean curvature | Figs. 3, 4 |
-| `notebooks/03_thickness_mapping.ipynb` | Apico-basal thickness | Fig. 5 |
-| `notebooks/04_pHH3_density_mapping.ipynb` | Mitotic density field | Fig. 6 |
-| `notebooks/05_spatchcocking.ipynb` | 3D→2D projection | Fig. 2 |
-| `notebooks/06_figure_plots.ipynb` | Statistical plots from CSV data | Figs. 1, 3–6 |
+| [00 — Mesh viewer](https://jexpnimesh.com/spatchcocking/notebooks/00_mesh_viewer/) | 3D viewer for meshes | — |
+| [01 — Mesh generation](https://jexpnimesh.com/spatchcocking/notebooks/01_mesh_generation/) | TIFF mask → surface mesh | Fig. 1c–d |
+| [02 — Curvature mapping](https://jexpnimesh.com/spatchcocking/notebooks/02_curvature_mapping/) | Gaussian & Mean curvature | Figs. 3, 4 |
+| [03 — Thickness mapping](https://jexpnimesh.com/spatchcocking/notebooks/03_thickness_mapping/) | Apico-basal thickness | Fig. 5 |
+| [04 — pHH3 density mapping](https://jexpnimesh.com/spatchcocking/notebooks/04_pHH3_density_mapping/) | Mitotic density field | Fig. 6 |
+| [05 — Spatchcocking](https://jexpnimesh.com/spatchcocking/notebooks/05_spatchcocking/) | 3D→2D projection | Fig. 2 |
+| [06 — Figure plots](https://jexpnimesh.com/spatchcocking/notebooks/06_figure_plots/) | Statistical plots from CSV data | Figs. 1, 3–6 |
+| [FEA notebook](https://jexpnimesh.com/spatchcocking/notebooks/notebook-fem/) | 2D plane-stress FEA | Fig. S9 |
 | `data/meshes/` | 6 pre-computed lumen meshes (3×HH17, 3×HH20) | Figs. 1, 3–6 |
 | `data/csv/` | Per-embryo measurements for figure reproduction | Figs. 1, 3–6 |
 | `data/example/` | Single-embryo trial dataset (masks, meshes, npys, CSV) | Methods |
 | `docs/segmentation.md` | Segmentation workflow (Fiji → 3D Slicer → napari) | Fig. 1, Methods |
-| `finite_element/` | 2D plane-stress FEA + notebook (separate environment) | Fig. S9 |
+| `finite_element/` | 2D plane-stress FEA scripts (separate environment) | Fig. S9 |
 
 ---
 
