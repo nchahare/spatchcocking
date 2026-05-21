@@ -1,6 +1,7 @@
 """
-MkDocs build hook — copies .ipynb files from notebooks/ into docs/notebooks/
-before each build. docs/notebooks/ is gitignored (build artefact).
+MkDocs build hook — copies .ipynb files into docs/notebooks/ before each build.
+Uses absolute paths derived from mkdocs.yml location so it works in CI too.
+docs/notebooks/ is gitignored (build artefact).
 """
 import shutil
 import os
@@ -8,11 +9,19 @@ import glob
 
 
 def on_pre_build(config):
+    # Base directory = folder containing mkdocs.yml (works locally and in CI)
+    base_dir = os.path.dirname(os.path.abspath(config["config_file_path"]))
+
     dst = os.path.join(config["docs_dir"], "notebooks")
     if os.path.exists(dst):
         shutil.rmtree(dst)
     os.makedirs(dst)
-    for nb in glob.glob("notebooks/*.ipynb"):
+
+    # Main pipeline notebooks
+    for nb in glob.glob(os.path.join(base_dir, "notebooks", "*.ipynb")):
         shutil.copy(nb, dst)
-    # Also copy the FEA notebook from finite_element/
-    shutil.copy("finite_element/notebook-fem.ipynb", dst)
+
+    # FEA notebook
+    fem_nb = os.path.join(base_dir, "finite_element", "notebook-fem.ipynb")
+    if os.path.exists(fem_nb):
+        shutil.copy(fem_nb, dst)
