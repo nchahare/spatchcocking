@@ -1,3 +1,4 @@
+# %%
 """
 fem_plane_stress.py
 
