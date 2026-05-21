@@ -4,7 +4,7 @@
 
 This repository contains the Python scripts, example data, and pre-computed meshes cited as supplementary materials in:
 
-> Chahare N., Imamura C., and Nerurkar N.L. (2026). *Morphometric analysis reveals that the chick cranial neural tube expands as an active shell.* [Journal, DOI — to be updated upon publication]
+> Chahare N., Imamura C., and Nerurkar N.L. (2026). *Morphometric analysis reveals that the chick cranial neural tube expands as an active shell.* bioRxiv. https://doi.org/10.64898/2026.05.18.726048
 
 ---
 
@@ -145,7 +145,7 @@ If you use this code, please cite:
 ```
 Chahare N., Imamura C., and Nerurkar N.L. (2026).
 Morphometric analysis reveals that the chick cranial neural tube expands as an active shell.
-[Journal]. DOI: [to be updated]
+bioRxiv. https://doi.org/10.64898/2026.05.18.726048
 ```
 
 ---
