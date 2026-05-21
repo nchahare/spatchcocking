@@ -1,0 +1,2153 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://nchahare.github.io/spatchcocking/api_reference/">
+      
+      
+        <link rel="prev" href="../phh3_spots/">
+      
+      
+        <link rel="next" href="../notebooks/00_mesh_viewer/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>API Reference - spatchcocking</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-reference-spatchcocking" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="spatchcocking" class="md-header__button md-logo" aria-label="spatchcocking" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spatchcocking
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="teal"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nchahare/spatchcocking" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nchahare/spatchcocking
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../spatchcocking_method/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Method
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../segmentation/" class="md-tabs__link">
+          
+  
+  
+  Pipeline
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../notebooks/00_mesh_viewer/" class="md-tabs__link">
+          
+  
+  
+  Notebooks
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="spatchcocking" class="md-nav__button md-logo" aria-label="spatchcocking" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    spatchcocking
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nchahare/spatchcocking" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nchahare/spatchcocking
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spatchcocking_method/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Method
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pipeline
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pipeline
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Segmentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phh3_spots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pHH3 Spots
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-mesh-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Mesh generation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Mesh generation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_meshmask_path-px2umz-px2umxy-checknone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_mesh(mask_path, px2umz, px2umxy, check=None)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tiff_stack_to_meshtiff_path-output_path-spacing-method-preprocess" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        tiff_stack_to_mesh(tiff_path, output_path, spacing, method, preprocess)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load_tiff_stackfile_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        load_tiff_stack(file_path)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocess_maskmask-threshold05-remove_small_objectstrue-min_size100-smoothtrue-fill_holestrue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        preprocess_mask(mask, threshold=0.5, remove_small_objects=True, min_size=100, smooth=True, fill_holes=True)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save_meshvertices-faces-output_path-formatply" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        save_mesh(vertices, faces, output_path, format='ply')
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-curvature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Curvature
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Curvature">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compute_and_save_curvaturesmsh-depth5-degree2-save_namenone-checkfalse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compute_and_save_curvatures(msh, depth=5, degree=2, save_name=None, check=False)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettightercmapvalues-sigma3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getTightercmap(values, sigma=3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getpropercurvaturemsh-depth-namefilenone-typegaussian-checknone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getProperCurvature(msh, depth, namefile=None, type="Gaussian", check=None)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-medial-axis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Medial axis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Medial axis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selectpointsonmeshmesh-namefilenone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        selectPointsonMesh(mesh, namefile=None)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getaxismesh-endpts-namefilenone-num_points12-n15-checknone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getAxis(mesh, endpts, namefile=None, num_points=12, N=15, check=None)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getplanesmesh-axispts-endpts-skip_indexnparray-checknone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getPlanes(mesh, axispts, endpts, skip_index=np.array([]), check=None)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find_closest_dorsal_pointsaxispts-dorsalpts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        find_closest_dorsal_points(axispts, dorsalpts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-spatchcocking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Spatchcocking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Spatchcocking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getdeformedmesh2mesh-axis_info-namefilenone-skip_indexnparray-dists_threshold300-checknone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getDeformedmesh2(mesh, axis_info, namefile=None, skip_index=np.array([]), dists_threshold=300, check=None)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_flatdata2deformed_mesh-namefilenone-checknone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_flatdata2(deformed_mesh, namefile=None, check=None)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#normalize_values2height-angle-shift_deg0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        normalize_values2(height, angle, shift_deg=0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualize_flatmesh2height-angle-data-sigma3-namefilenone-colorstrrdbu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        visualize_flatmesh2(height, angle, data, sigma=3, namefile=None, colorstr='RdBu')
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transfer_points_to_meshmesh-pts_data-scalar_name-show_resulttrue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        transfer_points_to_mesh(mesh, pts_data, scalar_name, show_result=True)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-utility-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Utility functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Utility functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getdefaultnamenamefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getDefaultname(namefile)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nearest_neighbor_orderpoints-start0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        nearest_neighbor_order(points, start=0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transform_to_radialpoints-center-normal-dnormal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        transform_to_radial(points, center, normal, dnormal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transform_to_cartesianradial_coords-center-normal-dnormal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        transform_to_cartesian(radial_coords, center, normal, dnormal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fix_anglesangles-shift_deg0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fix_angles(angles, shift_deg=0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#legacy-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Legacy functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notebooks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Notebooks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/00_mesh_viewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    00 — Mesh viewer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/01_mesh_generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 — Mesh generation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/02_curvature_mapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 — Curvature mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/03_thickness_mapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 — Thickness mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/04_pHH3_density_mapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 — pHH3 density mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/05_spatchcocking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 — Spatchcocking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/06_figure_plots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 — Figure plots
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/notebook-fem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FEA — Finite element analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-mesh-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Mesh generation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Mesh generation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_meshmask_path-px2umz-px2umxy-checknone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_mesh(mask_path, px2umz, px2umxy, check=None)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tiff_stack_to_meshtiff_path-output_path-spacing-method-preprocess" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        tiff_stack_to_mesh(tiff_path, output_path, spacing, method, preprocess)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load_tiff_stackfile_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        load_tiff_stack(file_path)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocess_maskmask-threshold05-remove_small_objectstrue-min_size100-smoothtrue-fill_holestrue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        preprocess_mask(mask, threshold=0.5, remove_small_objects=True, min_size=100, smooth=True, fill_holes=True)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save_meshvertices-faces-output_path-formatply" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        save_mesh(vertices, faces, output_path, format='ply')
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-curvature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Curvature
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Curvature">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compute_and_save_curvaturesmsh-depth5-degree2-save_namenone-checkfalse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compute_and_save_curvatures(msh, depth=5, degree=2, save_name=None, check=False)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettightercmapvalues-sigma3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getTightercmap(values, sigma=3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getpropercurvaturemsh-depth-namefilenone-typegaussian-checknone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getProperCurvature(msh, depth, namefile=None, type="Gaussian", check=None)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-medial-axis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Medial axis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Medial axis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selectpointsonmeshmesh-namefilenone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        selectPointsonMesh(mesh, namefile=None)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getaxismesh-endpts-namefilenone-num_points12-n15-checknone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getAxis(mesh, endpts, namefile=None, num_points=12, N=15, check=None)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getplanesmesh-axispts-endpts-skip_indexnparray-checknone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getPlanes(mesh, axispts, endpts, skip_index=np.array([]), check=None)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find_closest_dorsal_pointsaxispts-dorsalpts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        find_closest_dorsal_points(axispts, dorsalpts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-spatchcocking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Spatchcocking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Spatchcocking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getdeformedmesh2mesh-axis_info-namefilenone-skip_indexnparray-dists_threshold300-checknone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getDeformedmesh2(mesh, axis_info, namefile=None, skip_index=np.array([]), dists_threshold=300, check=None)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_flatdata2deformed_mesh-namefilenone-checknone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_flatdata2(deformed_mesh, namefile=None, check=None)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#normalize_values2height-angle-shift_deg0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        normalize_values2(height, angle, shift_deg=0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualize_flatmesh2height-angle-data-sigma3-namefilenone-colorstrrdbu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        visualize_flatmesh2(height, angle, data, sigma=3, namefile=None, colorstr='RdBu')
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transfer_points_to_meshmesh-pts_data-scalar_name-show_resulttrue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        transfer_points_to_mesh(mesh, pts_data, scalar_name, show_result=True)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-utility-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Utility functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Utility functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getdefaultnamenamefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getDefaultname(namefile)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nearest_neighbor_orderpoints-start0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        nearest_neighbor_order(points, start=0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transform_to_radialpoints-center-normal-dnormal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        transform_to_radial(points, center, normal, dnormal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transform_to_cartesianradial_coords-center-normal-dnormal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        transform_to_cartesian(radial_coords, center, normal, dnormal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fix_anglesangles-shift_deg0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fix_angles(angles, shift_deg=0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#legacy-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Legacy functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="api-reference-spatchcocking">API Reference — <code>spatchcocking</code><a class="headerlink" href="#api-reference-spatchcocking" title="Permanent link">&para;</a></h1>
+<p>All functions are importable from the top-level package:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">spatchcocking</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>     <span class="c1"># imports everything</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">spatchcocking</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>      <span class="c1"># use sp.function_name()</span>
+</code></pre></div>
+<p>The source is <code>src/spatchcocking/spatchcocking_utils.py</code>.</p>
+<hr />
+<h2 id="1-mesh-generation">1. Mesh generation<a class="headerlink" href="#1-mesh-generation" title="Permanent link">&para;</a></h2>
+<h3 id="get_meshmask_path-px2umz-px2umxy-checknone"><code>get_mesh(mask_path, px2umz, px2umxy, check=None)</code><a class="headerlink" href="#get_meshmask_path-px2umz-px2umxy-checknone" title="Permanent link">&para;</a></h3>
+<p>Convert a binary TIFF lumen mask into a processed surface mesh.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mask_path</code></td>
+<td>str</td>
+<td>Path to binary TIFF stack (lumen=1, background=0)</td>
+</tr>
+<tr>
+<td><code>px2umz</code></td>
+<td>float</td>
+<td>Z-step size in µm (e.g. 4.5)</td>
+</tr>
+<tr>
+<td><code>px2umxy</code></td>
+<td>float</td>
+<td>XY pixel size in µm (e.g. 5.5)</td>
+</tr>
+<tr>
+<td><code>check</code></td>
+<td>bool</td>
+<td>If True, opens a before/after comparison window</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong> <code>vedo.Mesh</code> — surface mesh with ~1000 vertices, coordinates in µm.</p>
+<p><strong>Side effects:</strong> Writes <code>&lt;name&gt;.ply</code> and <code>&lt;name&gt;-mesh.stl</code> to the current directory.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">mesh</span> <span class="o">=</span> <span class="n">get_mesh</span><span class="p">(</span><span class="s2">&quot;../data/example/mask.tif&quot;</span><span class="p">,</span> <span class="n">px2umz</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">px2umxy</span><span class="o">=</span><span class="mf">5.5</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="tiff_stack_to_meshtiff_path-output_path-spacing-method-preprocess"><code>tiff_stack_to_mesh(tiff_path, output_path, spacing, method, preprocess)</code><a class="headerlink" href="#tiff_stack_to_meshtiff_path-output_path-spacing-method-preprocess" title="Permanent link">&para;</a></h3>
+<p>Lower-level pipeline: load TIFF → preprocess mask → marching cubes → save.</p>
+<p>Returns <code>(vertices, faces)</code> as numpy arrays (not a vedo Mesh). Use <code>get_mesh</code> for the full pipeline including smoothing.</p>
+<hr />
+<h3 id="load_tiff_stackfile_path"><code>load_tiff_stack(file_path)</code><a class="headerlink" href="#load_tiff_stackfile_path" title="Permanent link">&para;</a></h3>
+<p>Load a 3D TIFF file. Handles 2D, 3D, and 4-channel TIFFs.</p>
+<p><strong>Returns:</strong> <code>numpy.ndarray</code> shape <code>(Z, Y, X)</code>.</p>
+<hr />
+<h3 id="preprocess_maskmask-threshold05-remove_small_objectstrue-min_size100-smoothtrue-fill_holestrue"><code>preprocess_mask(mask, threshold=0.5, remove_small_objects=True, min_size=100, smooth=True, fill_holes=True)</code><a class="headerlink" href="#preprocess_maskmask-threshold05-remove_small_objectstrue-min_size100-smoothtrue-fill_holestrue" title="Permanent link">&para;</a></h3>
+<p>Binarise, clean, and smooth a 3D mask before mesh extraction.</p>
+<p><strong>Returns:</strong> binary <code>numpy.ndarray</code>.</p>
+<hr />
+<h3 id="save_meshvertices-faces-output_path-formatply"><code>save_mesh(vertices, faces, output_path, format='ply')</code><a class="headerlink" href="#save_meshvertices-faces-output_path-formatply" title="Permanent link">&para;</a></h3>
+<p>Save a mesh (vertices + faces arrays) to PLY, OBJ, or STL.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">save_mesh</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="s2">&quot;../data/example/lumen.ply&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="2-curvature">2. Curvature<a class="headerlink" href="#2-curvature" title="Permanent link">&para;</a></h2>
+<h3 id="compute_and_save_curvaturesmsh-depth5-degree2-save_namenone-checkfalse"><code>compute_and_save_curvatures(msh, depth=5, degree=2, save_name=None, check=False)</code><a class="headerlink" href="#compute_and_save_curvaturesmsh-depth5-degree2-save_namenone-checkfalse" title="Permanent link">&para;</a></h3>
+<p>Fit local quadric patches to each vertex and compute principal curvatures.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>msh</code></td>
+<td>vedo.Mesh</td>
+<td>Input mesh</td>
+</tr>
+<tr>
+<td><code>depth</code></td>
+<td>int</td>
+<td>Neighbourhood ring depth for patch fitting (default 5)</td>
+</tr>
+<tr>
+<td><code>degree</code></td>
+<td>int</td>
+<td>Polynomial degree for patch (default 2)</td>
+</tr>
+<tr>
+<td><code>save_name</code></td>
+<td>str</td>
+<td>If set, saves <code>&lt;save_name&gt;-curvatures.npy</code></td>
+</tr>
+<tr>
+<td><code>check</code></td>
+<td>bool</td>
+<td>If True, opens a 4-panel interactive visualisation</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong> <code>vedo.Mesh</code> with four new vertex arrays:</p>
+<table>
+<thead>
+<tr>
+<th>Array name</th>
+<th>Units</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Gauss_Curvature</code></td>
+<td>µm⁻²</td>
+<td>K = k₁ × k₂</td>
+</tr>
+<tr>
+<td><code>Mean_Curvature</code></td>
+<td>µm⁻¹</td>
+<td>H = (k₁ + k₂) / 2</td>
+</tr>
+<tr>
+<td><code>K1</code></td>
+<td>µm⁻¹</td>
+<td>max principal curvature</td>
+</tr>
+<tr>
+<td><code>K2</code></td>
+<td>µm⁻¹</td>
+<td>min principal curvature</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">mesh</span> <span class="o">=</span> <span class="n">compute_and_save_curvatures</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">K</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">pointdata</span><span class="p">[</span><span class="s2">&quot;Gauss_Curvature&quot;</span><span class="p">]</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">H</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">pointdata</span><span class="p">[</span><span class="s2">&quot;Mean_Curvature&quot;</span><span class="p">]</span>
+</code></pre></div>
+<hr />
+<h3 id="gettightercmapvalues-sigma3"><code>getTightercmap(values, sigma=3)</code><a class="headerlink" href="#gettightercmapvalues-sigma3" title="Permanent link">&para;</a></h3>
+<p>Compute sigma-clipped colour limits for visualisation.</p>
+<p><strong>Returns:</strong> <code>(vmin, vmax)</code> — median ± sigma × std.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">getTightercmap</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">pointdata</span><span class="p">[</span><span class="s2">&quot;Mean_Curvature&quot;</span><span class="p">],</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">mesh</span><span class="o">.</span><span class="n">cmap</span><span class="p">(</span><span class="s2">&quot;PiYG&quot;</span><span class="p">,</span> <span class="s2">&quot;Mean_Curvature&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="getpropercurvaturemsh-depth-namefilenone-typegaussian-checknone"><code>getProperCurvature(msh, depth, namefile=None, type="Gaussian", check=None)</code><a class="headerlink" href="#getpropercurvaturemsh-depth-namefilenone-typegaussian-checknone" title="Permanent link">&para;</a></h3>
+<p>Older single-type curvature computation. Prefer <code>compute_and_save_curvatures</code> for new code.</p>
+<hr />
+<h2 id="3-medial-axis">3. Medial axis<a class="headerlink" href="#3-medial-axis" title="Permanent link">&para;</a></h2>
+<h3 id="selectpointsonmeshmesh-namefilenone"><code>selectPointsonMesh(mesh, namefile=None)</code><a class="headerlink" href="#selectpointsonmeshmesh-namefilenone" title="Permanent link">&para;</a></h3>
+<p>Open an interactive VTK window to click points on the dorsal midline.</p>
+<ul>
+<li>Click to place red spheres at selected points</li>
+<li>Press <strong><code>c</code></strong> to clear all selections</li>
+<li>Close the window when done</li>
+</ul>
+<p><strong>Returns:</strong> <code>numpy.ndarray</code> shape <code>(N, 3)</code> — selected 3D coordinates.<br />
+<strong>Side effect:</strong> Saves <code>&lt;namefile&gt;-endpts.npy</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">endpts</span> <span class="o">=</span> <span class="n">selectPointsonMesh</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>   <span class="c1"># interactive</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># or load previously saved points:</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">endpts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;mask-endpts.npy&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="getaxismesh-endpts-namefilenone-num_points12-n15-checknone"><code>getAxis(mesh, endpts, namefile=None, num_points=12, N=15, check=None)</code><a class="headerlink" href="#getaxismesh-endpts-namefilenone-num_points12-n15-checknone" title="Permanent link">&para;</a></h3>
+<p>Extract the 1D medial axis skeleton by MLS smoothing.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mesh</code></td>
+<td>vedo.Mesh</td>
+<td>Surface mesh</td>
+</tr>
+<tr>
+<td><code>endpts</code></td>
+<td>array (M, 3)</td>
+<td>Dorsal endpoint coordinates from <code>selectPointsonMesh</code></td>
+</tr>
+<tr>
+<td><code>num_points</code></td>
+<td>int</td>
+<td>Number of output axis control points (default 12)</td>
+</tr>
+<tr>
+<td><code>N</code></td>
+<td>int</td>
+<td>MLS smoothing iterations (10–30; more = smoother)</td>
+</tr>
+<tr>
+<td><code>check</code></td>
+<td>bool</td>
+<td>Show each smoothing iteration</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong> <code>numpy.ndarray</code> shape <code>(num_points, 3)</code>.<br />
+<strong>Side effect:</strong> Saves <code>&lt;namefile&gt;-axis.npy</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">axis_pts</span> <span class="o">=</span> <span class="n">getAxis</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">endpts</span><span class="p">,</span> <span class="n">num_points</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="getplanesmesh-axispts-endpts-skip_indexnparray-checknone"><code>getPlanes(mesh, axispts, endpts, skip_index=np.array([]), check=None)</code><a class="headerlink" href="#getplanesmesh-axispts-endpts-skip_indexnparray-checknone" title="Permanent link">&para;</a></h3>
+<p>Compute cross-sectional planes and dorsal normals along the axis.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mesh</code></td>
+<td>vedo.Mesh</td>
+<td>Surface mesh</td>
+</tr>
+<tr>
+<td><code>axispts</code></td>
+<td>array (N, 3)</td>
+<td>Axis control points from <code>getAxis</code></td>
+</tr>
+<tr>
+<td><code>endpts</code></td>
+<td>array (M, 3)</td>
+<td>Dorsal points (defines θ=0 reference)</td>
+</tr>
+<tr>
+<td><code>skip_index</code></td>
+<td>array</td>
+<td>Plane indices to skip (use if planes intersect)</td>
+</tr>
+<tr>
+<td><code>check</code></td>
+<td>bool</td>
+<td>Show planes on mesh interactively</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong> <code>axis_info</code> dict:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="s1">&#39;axis&#39;</span><span class="p">:</span>           <span class="n">axispts</span><span class="p">,</span>       <span class="c1"># (N, 3)  axis control points</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="s1">&#39;axis normals&#39;</span><span class="p">:</span>   <span class="n">normals</span><span class="p">,</span>       <span class="c1"># (N, 3)  tangent unit vectors</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="s1">&#39;dorsal normals&#39;</span><span class="p">:</span> <span class="n">dnormals</span>       <span class="c1"># (N, 3)  dorsal-direction unit vectors</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">}</span>
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">axis_info</span> <span class="o">=</span> <span class="n">getPlanes</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">axis_pts</span><span class="p">,</span> <span class="n">endpts</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="find_closest_dorsal_pointsaxispts-dorsalpts"><code>find_closest_dorsal_points(axispts, dorsalpts)</code><a class="headerlink" href="#find_closest_dorsal_pointsaxispts-dorsalpts" title="Permanent link">&para;</a></h3>
+<p>For each axis point, find the nearest point in <code>dorsalpts</code>.</p>
+<p><strong>Returns:</strong> <code>(closest_indices, closest_points)</code>.</p>
+<hr />
+<h2 id="4-spatchcocking">4. Spatchcocking<a class="headerlink" href="#4-spatchcocking" title="Permanent link">&para;</a></h2>
+<h3 id="getdeformedmesh2mesh-axis_info-namefilenone-skip_indexnparray-dists_threshold300-checknone"><code>getDeformedmesh2(mesh, axis_info, namefile=None, skip_index=np.array([]), dists_threshold=300, check=None)</code><a class="headerlink" href="#getdeformedmesh2mesh-axis_info-namefilenone-skip_indexnparray-dists_threshold300-checknone" title="Permanent link">&para;</a></h3>
+<p>Straighten and cylindrically unwrap the mesh (core spatchcocking step).</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mesh</code></td>
+<td>vedo.Mesh</td>
+<td>Mesh (with vertex arrays)</td>
+</tr>
+<tr>
+<td><code>axis_info</code></td>
+<td>dict</td>
+<td>Output of <code>getPlanes</code></td>
+</tr>
+<tr>
+<td><code>skip_index</code></td>
+<td>array</td>
+<td>Cross-sections to skip</td>
+</tr>
+<tr>
+<td><code>dists_threshold</code></td>
+<td>float</td>
+<td>Max distance (µm) from axis to include a slice point (default 300)</td>
+</tr>
+<tr>
+<td><code>check</code></td>
+<td>bool</td>
+<td>Show original vs straightened axis and warped points</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong> <code>vedo.Mesh</code> — the spatchcocked mesh with vertex coordinates encoding (arc length, angle).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">flat_mesh</span> <span class="o">=</span> <span class="n">getDeformedmesh2</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">axis_info</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="get_flatdata2deformed_mesh-namefilenone-checknone"><code>get_flatdata2(deformed_mesh, namefile=None, check=None)</code><a class="headerlink" href="#get_flatdata2deformed_mesh-namefilenone-checknone" title="Permanent link">&para;</a></h3>
+<p>Convert the spatchcocked mesh to polar coordinates.</p>
+<p><strong>Returns:</strong> <code>(radius, angle, height, flat_mesh2)</code></p>
+<table>
+<thead>
+<tr>
+<th>Return</th>
+<th>Units</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>radius</code></td>
+<td>µm</td>
+<td>Distance from tube axis</td>
+</tr>
+<tr>
+<td><code>angle</code></td>
+<td>rad</td>
+<td>Azimuthal angle (0 = dorsal, ±π = ventral)</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td>µm</td>
+<td>Position along the tube axis</td>
+</tr>
+<tr>
+<td><code>flat_mesh2</code></td>
+<td>vedo.Mesh</td>
+<td>Decimated + smoothed mesh used for projection</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">radius</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">flat_mesh2</span> <span class="o">=</span> <span class="n">get_flatdata2</span><span class="p">(</span><span class="n">flat_mesh</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="normalize_values2height-angle-shift_deg0"><code>normalize_values2(height, angle, shift_deg=0)</code><a class="headerlink" href="#normalize_values2height-angle-shift_deg0" title="Permanent link">&para;</a></h3>
+<p>Normalise coordinates for plotting.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>height</code></td>
+<td>Raw arc-length values (µm)</td>
+</tr>
+<tr>
+<td><code>angle</code></td>
+<td>Raw azimuthal angles (rad)</td>
+</tr>
+<tr>
+<td><code>shift_deg</code></td>
+<td>Rotate the DV angle by this many degrees (if dorsal ≠ 0°)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong> <code>(norm_height, angle_degrees)</code><br />
+- <code>norm_height</code>: 0 (rostral) → 1 (caudal)<br />
+- <code>angle_degrees</code>: −180° (ventral) → 0° (dorsal) → +180° (ventral)</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">s</span><span class="p">,</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">normalize_values2</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">angle</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="visualize_flatmesh2height-angle-data-sigma3-namefilenone-colorstrrdbu"><code>visualize_flatmesh2(height, angle, data, sigma=3, namefile=None, colorstr='RdBu')</code><a class="headerlink" href="#visualize_flatmesh2height-angle-data-sigma3-namefilenone-colorstrrdbu" title="Permanent link">&para;</a></h3>
+<p>Interpolate scattered vertex data onto a 500×500 grid and display as a 2D heatmap.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>height</code></td>
+<td>Normalised arc-length (0–1)</td>
+</tr>
+<tr>
+<td><code>angle</code></td>
+<td>DV angle in degrees</td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td>Scalar values to plot (any vertex array)</td>
+</tr>
+<tr>
+<td><code>sigma</code></td>
+<td>Sigma clipping for colour limits</td>
+</tr>
+<tr>
+<td><code>colorstr</code></td>
+<td>Matplotlib or vedo colormap name</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">visualize_flatmesh2</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">flat_mesh2</span><span class="o">.</span><span class="n">pointdata</span><span class="p">[</span><span class="s2">&quot;Gauss_Curvature&quot;</span><span class="p">],</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>                    <span class="n">colorstr</span><span class="o">=</span><span class="s2">&quot;PiYG&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="transfer_points_to_meshmesh-pts_data-scalar_name-show_resulttrue"><code>transfer_points_to_mesh(mesh, pts_data, scalar_name, show_result=True)</code><a class="headerlink" href="#transfer_points_to_meshmesh-pts_data-scalar_name-show_resulttrue" title="Permanent link">&para;</a></h3>
+<p>Interpolate a scalar field from a point cloud onto the mesh surface.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mesh</code></td>
+<td>vedo.Mesh</td>
+<td>Target mesh</td>
+</tr>
+<tr>
+<td><code>pts_data</code></td>
+<td>ndarray (N, 4)</td>
+<td>Columns: X, Y, Z, scalar value</td>
+</tr>
+<tr>
+<td><code>scalar_name</code></td>
+<td>str</td>
+<td>Name for the new vertex array</td>
+</tr>
+<tr>
+<td><code>show_result</code></td>
+<td>bool</td>
+<td>Open a visualisation window if True</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong> <code>vedo.Mesh</code> with the new scalar array.</p>
+<p>Used for mapping pHH3+ cell density (from Imaris spot detection) onto the lumen surface:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="n">spots_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/example/pHH3_spots.csv&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="n">coords</span> <span class="o">=</span> <span class="n">spots_df</span><span class="p">[[</span><span class="s2">&quot;Position X&quot;</span><span class="p">,</span> <span class="s2">&quot;Position Y&quot;</span><span class="p">,</span> <span class="s2">&quot;Position Z&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="n">density</span> <span class="o">=</span> <span class="n">spots_df</span><span class="p">[</span><span class="s2">&quot;n_spots_per_area&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>   <span class="c1"># pre-computed density column</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="n">pts_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">coords</span><span class="p">,</span> <span class="n">density</span><span class="p">])</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="n">mesh</span> <span class="o">=</span> <span class="n">transfer_points_to_mesh</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">pts_data</span><span class="p">,</span> <span class="n">scalar_name</span><span class="o">=</span><span class="s2">&quot;phh3&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="5-utility-functions">5. Utility functions<a class="headerlink" href="#5-utility-functions" title="Permanent link">&para;</a></h2>
+<h3 id="getdefaultnamenamefile"><code>getDefaultname(namefile)</code><a class="headerlink" href="#getdefaultnamenamefile" title="Permanent link">&para;</a></h3>
+<p>If <code>namefile</code> is None, infer the base name from any <code>.tif</code> file in the current directory.</p>
+<hr />
+<h3 id="nearest_neighbor_orderpoints-start0"><code>nearest_neighbor_order(points, start=0)</code><a class="headerlink" href="#nearest_neighbor_orderpoints-start0" title="Permanent link">&para;</a></h3>
+<p>Greedy nearest-neighbour ordering of a point cloud (used internally by <code>getAxis</code> to sort the medial axis).</p>
+<hr />
+<h3 id="transform_to_radialpoints-center-normal-dnormal"><code>transform_to_radial(points, center, normal, dnormal)</code><a class="headerlink" href="#transform_to_radialpoints-center-normal-dnormal" title="Permanent link">&para;</a></h3>
+<p>Convert 3D Cartesian points to cylindrical (r, θ, s) coordinates in a local frame defined by <code>normal</code> (axis) and <code>dnormal</code> (dorsal reference).</p>
+<hr />
+<h3 id="transform_to_cartesianradial_coords-center-normal-dnormal"><code>transform_to_cartesian(radial_coords, center, normal, dnormal)</code><a class="headerlink" href="#transform_to_cartesianradial_coords-center-normal-dnormal" title="Permanent link">&para;</a></h3>
+<p>Inverse of <code>transform_to_radial</code>.</p>
+<hr />
+<h3 id="fix_anglesangles-shift_deg0"><code>fix_angles(angles, shift_deg=0)</code><a class="headerlink" href="#fix_anglesangles-shift_deg0" title="Permanent link">&para;</a></h3>
+<p>Shift and wrap angles to [−180°, +180°].</p>
+<hr />
+<h2 id="legacy-functions">Legacy functions<a class="headerlink" href="#legacy-functions" title="Permanent link">&para;</a></h2>
+<p>The following functions are kept for backward compatibility. Prefer the <code>*2</code> variants for new code.</p>
+<table>
+<thead>
+<tr>
+<th>Legacy</th>
+<th>Preferred replacement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getDeformedmesh()</code></td>
+<td><code>getDeformedmesh2()</code></td>
+</tr>
+<tr>
+<td><code>get_flatdata()</code></td>
+<td><code>get_flatdata2()</code></td>
+</tr>
+<tr>
+<td><code>normalize_values()</code></td>
+<td><code>normalize_values2()</code></td>
+</tr>
+<tr>
+<td><code>visualize_flatmesh()</code></td>
+<td><code>visualize_flatmesh2()</code></td>
+</tr>
+<tr>
+<td><code>getProperCurvature()</code></td>
+<td><code>compute_and_save_curvatures()</code></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.top", "content.code.copy", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
