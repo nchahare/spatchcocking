@@ -49,7 +49,7 @@ The `spatchcocking` Python package takes its name from this transformation, but 
 | Folder / File | Contents | Paper figures |
 |---|---|---|
 | `src/spatchcocking/` | Installable Python package | All |
-| `notebooks/00_mesh_viewer.ipynb` | 3D viewer for all 6 research meshes | — |
+| `notebooks/00_mesh_viewer.ipynb` | 3D viewer for meshes | — |
 | `notebooks/01_mesh_generation.ipynb` | TIFF mask → surface mesh | Fig. 1c–d |
 | `notebooks/02_curvature_mapping.ipynb` | Gaussian & Mean curvature | Figs. 3, 4 |
 | `notebooks/03_thickness_mapping.ipynb` | Apico-basal thickness | Fig. 5 |
